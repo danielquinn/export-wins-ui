@@ -143,7 +143,7 @@ class EditWinView(BaseWinFormView):
     def get_success_url(self):
         win_id = self.kwargs['win_id']
         if self.request.POST.get('send'):
-            return reverse("complete-win-success", kwargs={'win_id': win_id})
+            return reverse("win-complete", kwargs={'win_id': win_id})
         else:
             return reverse("edit-win-success", kwargs={'win_id': win_id})
 
