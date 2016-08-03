@@ -88,7 +88,8 @@ class WinForm(BootstrappedForm, metaclass=WinReflectiveFormMetaclass):
 
         self.date_format = 'MM/YYYY'  # the format the date field expects
 
-        self.fields["date"].widget.attrs.update({"placeholder": self.date_format})
+        self.fields["date"].widget.attrs.update(
+            {"placeholder": self.date_format})
 
         self.fields["is_personally_confirmed"].required = True
         self.fields["is_personally_confirmed"].label_suffix = ""
@@ -106,7 +107,7 @@ class WinForm(BootstrappedForm, metaclass=WinReflectiveFormMetaclass):
         if not exclude_non_editable_fields:
             self._add_breakdown_fields()
 
-        self.advisor_fields = self._get_advisor_fields()
+        self.advisor_field_specs = self._get_advisor_fields()
         self._add_advisor_fields()
 
         # need to confirm these are correct. and for the fields which aren't
@@ -194,58 +195,76 @@ class WinForm(BootstrappedForm, metaclass=WinReflectiveFormMetaclass):
             'patch',
         )
 
-        # todo... how to get id for updating?!?!
         for data in self._get_advisor_data(win_id):
-            rabbit.push(
-                settings.ADVISORS_AP + advisor_id + '/',
-                data,
-                self.request,
-                'patch',
-            )
+            existing_advisor_id = data['id']
+            ignore_delete = not bool(data['name'])
+            # if it has an id already, update that advisor
+            if existing_advisor_id:
+                # if it does not have a name, but does have an id, delete it
+                if ignore_delete:
+                    rabbit.push(
+                        settings.ADVISORS_AP + str(existing_advisor_id) + '/',
+                        data,
+                        self.request,
+                        'delete',
+                    )
+                else:
+                    rabbit.push(
+                        settings.ADVISORS_AP + str(existing_advisor_id) + '/',
+                        data,
+                        self.request,
+                        'patch',
+                    )
+            elif not ignore_delete:
+                rabbit.push(settings.ADVISORS_AP, data, self.request)
 
     def _add_breakdown_fields(self):
         """ Create breakdown fields """
 
         breakdown_values = ("breakdown_exports_{}", "breakdown_non_exports_{}")
-
         now = datetime.utcnow()
 
         for i in range(0, 5):
-
-            d = now + relativedelta(years=i)
-
+            year_date = now + relativedelta(years=i)
             for field in breakdown_values:
-                self.fields[field.format(i)] = forms.fields.IntegerField(
-                    label="{}/{}".format(d.year, str(d.year + 1)[-2:]),
-                    widget=forms.fields.NumberInput(
-                        attrs={
-                            "class": "form-control",
-                            "placeholder": "£GBP"
-                        }
-                    ),
+                field_name = field.format(i)
+                label = "{}/{}".format(
+                    year_date.year,
+                    str(year_date.year + 1)[-2:],
+                )
+                widget = forms.fields.NumberInput(
+                    attrs={
+                        "class": "form-control",
+                        "placeholder": "£GBP"
+                    }
+                )
+                self.fields[field_name] = forms.fields.IntegerField(
+                    label=label,
+                    widget=widget,
                     initial='0',
                     max_value=2000000000,
-                    label_suffix=""
+                    label_suffix="",
                 )
 
     def _get_breakdown_data(self, win_id):
-        """ Make breakdown data for pushing to endpoint from cleaned data """
+        """ Get input breakdown data for pushing to endpoint """
 
-        r = []
+        retval = []
         now = datetime.utcnow()
 
         for i in range(0, 5):
-            d = now + relativedelta(years=i)
-            for t in ("exports", "non_exports"):
-                value = self.cleaned_data.get("breakdown_{}_{}".format(t, i))
-                if value:
-                    r.append({
-                        "type": "1" if t == "exports" else "2",
-                        "year": d.year,
-                        "value": value,
-                        "win": win_id
-                    })
-        return r
+            year_date = now + relativedelta(years=i)
+            for breakdown_type in ("exports", "non_exports"):
+                field_name = "breakdown_{}_{}".format(breakdown_type, i)
+                value = self.cleaned_data.get(field_name)
+                retval.append({
+                    "id": hmmm,
+                    "type": "1" if breakdown_type == "exports" else "2",
+                    "year": year_date.year,
+                    "value": value or 0,
+                    "win": win_id
+                })
+        return retval
 
     def _get_advisor_fields(self):
         """ Make list of lists of advisor field names and specs """
@@ -265,29 +284,25 @@ class WinForm(BootstrappedForm, metaclass=WinReflectiveFormMetaclass):
         return advisor_fields
 
     def _add_advisor_fields(self):
-        """ Create advisor fields from advisor data """
+        """ Create advisor fields from advisor field specification """
 
-        for instance_data in self.advisor_fields:
-            for _, field_name, spec in instance_data:
-                self.fields[field_name] = get_form_field(spec)
+        for field_data in self.advisor_field_specs:
+            for _, field_name, field_spec in field_data:
+                self.fields[field_name] = get_form_field(field_spec)
                 self.fields[field_name].required = False
                 self.fields[field_name].widget.attrs.update({
                     "class": "form-control"
                 })
 
     def _get_advisor_data(self, win_id):
-        """ Make advisor data for pushing to endpoint from cleaned data """
+        """ Get input advisor data for pushing to endpoint """
 
         advisor_data = []
-        for instance_data in self.advisor_fields:
+        for field_data in self.advisor_field_specs:
             instance_dict = {
                 name: self.cleaned_data[field_name]
-                for name, field_name, _ in instance_data
+                for name, field_name, _ in field_data
             }
-            if not instance_dict['name']:
-                # ignore any instances where user has not input a name -------------------- this will be a problem if we want to delete them...
-                continue
-            # manually add the foriegn key for the win (for when newly created)
             instance_dict['win'] = win_id
             advisor_data.append(instance_dict)
         return advisor_data

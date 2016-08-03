@@ -73,6 +73,9 @@ class Rabbit(object):
     def patch(self, url, *args, **kwargs):
         return self._request("patch", url, *args, **kwargs)
 
+    def delete(self, url, *args, **kwargs):
+        return self._request("delete", url, *args, **kwargs)
+
     @classmethod
     def _request(cls, method, url, request=None, keep_trying=False, *args,
                  **kwargs):
@@ -142,21 +145,22 @@ class Rabbit(object):
     def push(self, url, data, request, method='post'):
         """ POST/PUT/PATCH data to URL on data server, return json response """
 
-        assert method in ['post', 'put', 'patch'], 'invalid method'
+        assert method in ['post', 'put', 'patch', 'delete'], 'invalid method'
 
         resp = getattr(self, method)(url, data=data, request=request)
 
         # error if do not get expected response from data server
         if ((method == 'post' and resp.status_code != 201) or
                 (method == 'put' and resp.status_code != 200) or
-                (method == 'patch' and resp.status_code != 200)):
+                (method == 'patch' and resp.status_code != 200) or
+                (method == 'delete' and resp.status_code != 204)):
 
             raise Exception("Rabbit error: {} - {}".format(
                 resp.status_code,
                 resp.content,
             ))
 
-        return resp.json()
+        return resp.json() if method != 'delete' else ''
 
 
 rabbit = Rabbit()
