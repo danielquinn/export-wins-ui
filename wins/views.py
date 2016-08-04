@@ -186,7 +186,7 @@ class ConfirmationView(FormView):
             self.sample = True
 
         try:
-            self.win_dict = self._get_valid_win(kwargs["pk"], request)
+            self.win_dict = self._get_valid_win(kwargs["win_id"], request)
         except self.SecurityException as e:
             return self._deny_access(request, message=str(e))
 
@@ -197,7 +197,7 @@ class ConfirmationView(FormView):
 
         kwargs = FormView.get_form_kwargs(self)
         kwargs["request"] = self.request
-        kwargs["initial"]["win"] = self.kwargs["pk"]
+        kwargs["initial"]["win"] = self.kwargs["win_id"]
         return kwargs
 
     def get_context_data(self, **kwargs):

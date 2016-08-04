@@ -190,28 +190,28 @@ class WinForm(BootstrappedForm, metaclass=WinReflectiveFormMetaclass):
             'patch',
         )
 
-        for data in self._get_breakdown_data(win_id):
-            existing_breakdown_id = data['id']
-            ignore_or_delete_breakdown = not bool(data['value'])
-            # if it has an id already, update that breakdown
-            if existing_breakdown_id:
-                # if it does not have a name, but does have an id, delete it
-                if ignore_or_delete_breakdown:
-                    rabbit.push(
-                        settings.BREAKDOWNS_AP + str(existing_breakdown_id) + '/',
-                        data,
-                        self.request,
-                        'delete',
-                    )
-                else:
-                    rabbit.push(
-                        settings.BREAKDOWNS_AP + str(existing_breakdown_id) + '/',
-                        data,
-                        self.request,
-                        'patch',
-                    )
-            elif not ignore_or_delete_breakdown:
-                rabbit.push(settings.BREAKDOWNS_AP, data, self.request)
+        # for data in self._get_breakdown_data(win_id):
+        #     existing_breakdown_id = data['id']
+        #     ignore_or_delete_breakdown = not bool(data['value'])
+        #     # if it has an id already, update that breakdown
+        #     if existing_breakdown_id:
+        #         # if it does not have a name, but does have an id, delete it
+        #         if ignore_or_delete_breakdown:
+        #             rabbit.push(
+        #                 settings.BREAKDOWNS_AP + str(existing_breakdown_id) + '/',
+        #                 data,
+        #                 self.request,
+        #                 'delete',
+        #             )
+        #         else:
+        #             rabbit.push(
+        #                 settings.BREAKDOWNS_AP + str(existing_breakdown_id) + '/',
+        #                 data,
+        #                 self.request,
+        #                 'patch',
+        #             )
+        #     elif not ignore_or_delete_breakdown:
+        #         rabbit.push(settings.BREAKDOWNS_AP, data, self.request)
 
         for data in self._get_advisor_data(win_id):
             existing_advisor_id = data['id']
