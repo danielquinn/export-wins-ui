@@ -74,7 +74,8 @@ class WinForm(BootstrappedForm, metaclass=WinReflectiveFormMetaclass):
 
         self.request = kwargs.pop("request")
         exclude_non_editable_fields = kwargs.pop('exclude_non_editable', False)
-        advisors = kwargs.pop('advisors', None)
+        breakdowns = kwargs.pop('breakdowns', [])
+        advisors = kwargs.pop('advisors', [])
 
         super().__init__(*args, **kwargs)
 
@@ -97,10 +98,12 @@ class WinForm(BootstrappedForm, metaclass=WinReflectiveFormMetaclass):
         self.fields["total_expected_non_export_value"].initial = '0'
 
         if not exclude_non_editable_fields:
-            self._add_breakdown_fields()
+            self.breakdown_field_data = self._add_breakdown_fields()
+            self._add_breakdown_initial(breakdowns)
 
         self.advisor_field_specs = self._get_advisor_fields()
         self._add_advisor_fields()
+        self._add_advisor_initial(advisors)
 
         # need to confirm these are correct. and for the fields which aren't
         # in confirmation form - why?!
@@ -187,13 +190,36 @@ class WinForm(BootstrappedForm, metaclass=WinReflectiveFormMetaclass):
             'patch',
         )
 
+        for data in self._get_breakdown_data(win_id):
+            existing_breakdown_id = data['id']
+            ignore_or_delete_breakdown = not bool(data['value'])
+            # if it has an id already, update that breakdown
+            if existing_breakdown_id:
+                # if it does not have a name, but does have an id, delete it
+                if ignore_or_delete_breakdown:
+                    rabbit.push(
+                        settings.BREAKDOWNS_AP + str(existing_breakdown_id) + '/',
+                        data,
+                        self.request,
+                        'delete',
+                    )
+                else:
+                    rabbit.push(
+                        settings.BREAKDOWNS_AP + str(existing_breakdown_id) + '/',
+                        data,
+                        self.request,
+                        'patch',
+                    )
+            elif not ignore_or_delete_breakdown:
+                rabbit.push(settings.BREAKDOWNS_AP, data, self.request)
+
         for data in self._get_advisor_data(win_id):
             existing_advisor_id = data['id']
-            ignore_delete = not bool(data['name'])
+            ignore_or_delete_advisor = not bool(data['name'])
             # if it has an id already, update that advisor
             if existing_advisor_id:
                 # if it does not have a name, but does have an id, delete it
-                if ignore_delete:
+                if ignore_or_delete_advisor:
                     rabbit.push(
                         settings.ADVISORS_AP + str(existing_advisor_id) + '/',
                         data,
@@ -207,22 +233,25 @@ class WinForm(BootstrappedForm, metaclass=WinReflectiveFormMetaclass):
                         self.request,
                         'patch',
                     )
-            elif not ignore_delete:
+            elif not ignore_or_delete_advisor:
                 rabbit.push(settings.ADVISORS_AP, data, self.request)
 
     def _add_breakdown_fields(self):
-        """ Create breakdown fields """
+        """ Create breakdown fields
 
-        breakdown_values = ("breakdown_exports_{}", "breakdown_non_exports_{}")
+        This assumes wins cannot be edited in the year after they are created
+        """
+
         now = datetime.utcnow()
-
-        for i in range(0, 5):
-            year_date = now + relativedelta(years=i)
-            for field in breakdown_values:
-                field_name = field.format(i)
+        field_data = []
+        for breakdown_type in ['exports', 'non_exports']:
+            for i in range(0, 5):
+                year = (now + relativedelta(years=i)).year
+                field_name = 'breakdown_{}_{}'.format(breakdown_type, i)
+                field_data.append((field_name, year, breakdown_type))
                 label = "{}/{}".format(
-                    year_date.year,
-                    str(year_date.year + 1)[-2:],
+                    year,
+                    str(year + 1)[-2:],
                 )
                 widget = forms.fields.NumberInput(
                     attrs={
@@ -237,25 +266,37 @@ class WinForm(BootstrappedForm, metaclass=WinReflectiveFormMetaclass):
                     max_value=2000000000,
                     label_suffix="",
                 )
+        return field_data
+
+    def _add_breakdown_initial(self, breakdowns):
+        """ Add breakdown data to `initial` """
+
+        year_type_to_breakdown = {
+            '{}-{}'.format(b['year'], b['type']): b
+            for b in breakdowns
+        }
+        for field_name, year, breakdown_type in self.breakdown_field_data:
+            breadkdown_typenum = "1" if breakdown_type == "exports" else "2"
+            breakdown = year_type_to_breakdown.get(
+                '{}-{}'.format(year, breadkdown_typenum)
+            )
+            if breakdown:
+                self.initial[field_name] = breakdown['value']
 
     def _get_breakdown_data(self, win_id):
         """ Get input breakdown data for pushing to endpoint """
 
         retval = []
-        now = datetime.utcnow()
-
-        for i in range(0, 5):
-            year_date = now + relativedelta(years=i)
-            for breakdown_type in ("exports", "non_exports"):
-                field_name = "breakdown_{}_{}".format(breakdown_type, i)
-                value = self.cleaned_data.get(field_name)
-                retval.append({
-                    "id": hmmm,
-                    "type": "1" if breakdown_type == "exports" else "2",
-                    "year": year_date.year,
-                    "value": value or 0,
-                    "win": win_id
-                })
+        for field_name, year, breakdown_type in self.breakdown_field_data:
+            value = self.cleaned_data.get(field_name)
+            print(field_name, value)
+            retval.append({
+                # "id": hmmm,
+                "type": "1" if breakdown_type == "exports" else "2",
+                "year": year,
+                "value": value or 0,
+                "win": win_id,
+            })
         return retval
 
     def _get_advisor_fields(self):
@@ -286,6 +327,16 @@ class WinForm(BootstrappedForm, metaclass=WinReflectiveFormMetaclass):
                     "class": "form-control"
                 })
 
+    def _add_advisor_initial(self, advisors):
+        """ Add advisor data to `self.initial` """
+
+        for i, field_data in enumerate(self.advisor_field_specs):
+            if i + 1 > len(advisors):
+                break
+            advisor = advisors[i]
+            for name, field_name, _ in field_data:
+                self.initial[field_name] = advisor.get(name)
+
     def _get_advisor_data(self, win_id):
         """ Get input advisor data for pushing to endpoint """
 
@@ -295,6 +346,9 @@ class WinForm(BootstrappedForm, metaclass=WinReflectiveFormMetaclass):
                 name: self.cleaned_data[field_name]
                 for name, field_name, _ in field_data
             }
+            # this may have some affect on editing,.........
+            if not instance_dict['name']:
+                continue
             instance_dict['win'] = win_id
             advisor_data.append(instance_dict)
         return advisor_data

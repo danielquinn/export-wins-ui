@@ -119,24 +119,14 @@ class EditWinView(BaseWinFormView):
     """ Edit a Win of logged in User """
 
     def get_initial(self):
-        # Save here for context data. Can't get in init because self.kwargs
-        # gets set in `view`, create by `as_view`
-        self.win = get_win(self.kwargs['win_id'], self.request)
+        # note: breakdowns and advisors get added to initial dict in __init__
 
+        # Save win on self for context data.
+        # Can't get in __init__ because self.kwargs gets set in `view`,
+        # created by `as_view`
+        self.win = get_win(self.kwargs['win_id'], self.request)
         initial = self.win
         initial['date'] = date_parser(initial['date']).strftime('%m/%Y')
-
-        # this is annoying and not good...
-        advisors = get_win_advisors(self.kwargs['win_id'], self.request)
-        for i, advisor in enumerate(advisors):
-            initial['advisor_{}_name'.format(i)] = advisor['name']
-            initial['advisor_{}_hq_team'.format(i)] = advisor['hq_team']
-            initial['advisor_{}_team_type'.format(i)] = advisor['team_type']
-            initial['advisor_{}_location'.format(i)] = advisor['location']
-            initial['advisor_{}_id'.format(i)] = advisor['id']
-
-        breakdowns = get_win_breakdowns(self.kwargs['win_id'], self.request)
-
         return initial
 
     def get_context_data(self, **kwargs):
@@ -147,10 +137,14 @@ class EditWinView(BaseWinFormView):
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
         # kwargs['exclude_non_editable'] = True
-        # kwargs['advisors'] = get_win_advisors(
-        #     self.kwargs['win_id'],
-        #     self.request,
-        # )
+        kwargs['breakdowns'] = get_win_breakdowns(
+            self.kwargs['win_id'],
+            self.request,
+        )
+        kwargs['advisors'] = get_win_advisors(
+            self.kwargs['win_id'],
+            self.request,
+        )
         return kwargs
 
     def form_valid(self, form):
