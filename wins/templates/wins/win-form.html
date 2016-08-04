@@ -2,10 +2,9 @@
 
 {% load staticfiles %}
 
-{% block subheader %}
-	<p class="alert alert-info">The Lead officer should provide information for this form.</p>
-{% endblock subheader %}
+{% block title %} - Record new win{% endblock title %}
 
+{% block header %}Record new win{% endblock header %}
 
 {% block banner %}
 	<div class="visible-print-block">
@@ -24,6 +23,8 @@
 		</div>
 		{{ form.non_field_errors }}
 	{% endif %}
+
+	<p class="alert alert-info">The Lead officer should provide information for this form.</p>
 
 	<form method="post">
 
