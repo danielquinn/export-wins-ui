@@ -1,0 +1,18 @@
+@import "bootstrap/variables";
+
+.win-details {
+
+	.glyphicon {
+		margin-right: 0.5em;
+	}
+
+	.company-name,
+	.customer-name {
+
+		font-size: $font-size-h3;
+	}
+
+	.officer-email {
+		display: block;
+	}
+}
