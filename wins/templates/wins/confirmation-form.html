@@ -9,7 +9,10 @@
 	</h1>
 {% endblock header %}
 
-{% block subheader %}{% endblock subheader %}
+{% comment %}
+	Remove the site header as this is sent to a customer and they don't need the header or breadcrumbs
+{% endcomment %}
+{% block site-header %}{% endblock site-header %}
 
 {% block content %}
 

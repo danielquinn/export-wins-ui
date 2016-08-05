@@ -48,9 +48,7 @@
 
 .my-wins .btn-responsive { margin-bottom: 1em; }
 
-body { border-top: 5px solid #c81e53; }
-
-.content { max-width: 600px; margin: 25px auto; padding: 10px; }
+body { border-top: 5px solid #c81e53; padding-top: 2.5em; }
 
 .logo-row { margin-top: -10px; }
 

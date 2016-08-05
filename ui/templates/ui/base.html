@@ -16,7 +16,7 @@
 
     {% block banner %}{% endblock banner %}
 
-    <div class="content">
+    <div class="content container">
 
       <div class="row logo-row">
         <div class="col-xs-5">
@@ -32,6 +32,7 @@
         </div>
       </div>
 
+      {% block site-header %}
       <div class="row site-heading">
         <div class="col-xs-12">
           <h1 class="h2">Export Wins</h1>
@@ -46,6 +47,8 @@
         <li><a href="#">Library</a></li>
         <li class="active">Data</li>
       </ol>
+
+      {% endblock site-header %}
 
       <h2 class="h1 page-heading">
         {% block header %}{% endblock header %}
