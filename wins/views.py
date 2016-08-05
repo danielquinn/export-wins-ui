@@ -122,7 +122,6 @@ class WinCompleteView(LoginRequiredMixin, TemplateView):
 class BaseWinFormView(LoginRequiredMixin, FormView):
     """ Base class for adding and editing Wins """
 
-    template_name = "wins/win-form.html"
     form_class = WinForm
 
     def get_form_kwargs(self):
@@ -133,6 +132,8 @@ class BaseWinFormView(LoginRequiredMixin, FormView):
 
 class NewWinView(BaseWinFormView):
     """ Create a new Win """
+
+    template_name = "wins/win-form.html"
 
     def form_valid(self, form):
         """ If form is valid, create on data server """
@@ -145,6 +146,8 @@ class NewWinView(BaseWinFormView):
 
 class EditWinView(BaseWinFormView):
     """ Edit a Win of logged in User """
+
+    template_name = "wins/win-edit-form.html"
 
     def get_initial(self):
         # note: breakdowns and advisors get added to initial dict in __init__
