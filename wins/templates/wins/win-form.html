@@ -4,6 +4,7 @@
 
 {% block title %} - Record new win{% endblock title %}
 
+{% block breadcrumb-name %}Record new win{% endblock %}
 {% block header %}Record new win{% endblock header %}
 
 {% block banner %}
@@ -40,6 +41,53 @@
 		{% include "wins/win-field.html" with field=form.line_manager_name %}
 
 		<hr>
+
+		<h3>
+			Contributing teams and advisers
+			<p>One individual or team per row.</p>
+		</h3>
+
+		<table id="advisors" class="advisors table table-responsive">
+			<tr>
+				<th>Name</th>
+				<th>Team Type</th>
+				<th>HQ Team<br />Region or Post</th>
+				<th>Location</th>
+			</tr>
+			<tr class="advisor">
+				<td>{{ form.advisor_0_name }} <span style="display: none;">{{ form.advisor_0_id }}</span></td>
+				<td class="team-type">{{ form.advisor_0_team_type }}</td>
+				<td class="team-hq_team">{{ form.advisor_0_hq_team }}</td>
+				<td>{{ form.advisor_0_location }}</td>
+			</tr>
+			<tr class="advisor">
+				<td>{{ form.advisor_1_name }} <span style="display: none;">{{ form.advisor_1_id }}</span></td>
+				<td class="team-type">{{ form.advisor_1_team_type }}</td>
+				<td class="team-hq_team">{{ form.advisor_1_hq_team }}</td>
+				<td>{{ form.advisor_1_location }}</td>
+			</tr>
+			<tr class="advisor">
+				<td>{{ form.advisor_2_name }} <span style="display: none;">{{ form.advisor_2_id }}</span></td>
+				<td class="team-type">{{ form.advisor_2_team_type }}</td>
+				<td class="team-hq_team">{{ form.advisor_2_hq_team }}</td>
+				<td>{{ form.advisor_2_location }}</td>
+			</tr>
+			<tr class="advisor">
+				<td>{{ form.advisor_3_name }} <span style="display: none;">{{ form.advisor_3_id }}</span></td>
+				<td class="team-type">{{ form.advisor_3_team_type }}</td>
+				<td class="team-hq_team">{{ form.advisor_3_hq_team }}</td>
+				<td>{{ form.advisor_3_location }}</td>
+			</tr>
+			<tr class="advisor">
+				<td>{{ form.advisor_4_name }} <span style="display: none;">{{ form.advisor_4_id }}</span></td>
+				<td class="team-type">{{ form.advisor_4_team_type }}</td>
+				<td class="team-hq_team">{{ form.advisor_4_hq_team }}</td>
+				<td>{{ form.advisor_4_location }}</td>
+			</tr>
+		</table>
+
+		<hr>
+
 		<h3>Customer's details</h3>
 
 		{% include "wins/win-field.html" with field=form.company_name %}
@@ -50,6 +98,7 @@
 		{% include "wins/win-field.html" with field=form.customer_location %}
 
 		<hr>
+
 		<h3>Details of Export Win</h3>
 		<p>
 			Your answers to these questions will be included in the details confirmed
@@ -141,52 +190,6 @@
 			</tr>
 		</table>
 {% endif %}
-
-		<hr>
-
-		<h3>
-			Contributing teams and advisers
-			<p>One individual or team per row.</p>
-		</h3>
-
-		<table id="advisors" class="advisors table table-responsive">
-			<tr>
-				<th>Name</th>
-				<th>Team Type</th>
-				<th>HQ Team<br />Region or Post</th>
-				<th>Location</th>
-			</tr>
-			<tr class="advisor">
-				<td>{{ form.advisor_0_name }} <span style="display: none;">{{ form.advisor_0_id }}</span></td>
-				<td class="team-type">{{ form.advisor_0_team_type }}</td>
-				<td class="team-hq_team">{{ form.advisor_0_hq_team }}</td>
-				<td>{{ form.advisor_0_location }}</td>
-			</tr>
-			<tr class="advisor">
-				<td>{{ form.advisor_1_name }} <span style="display: none;">{{ form.advisor_1_id }}</span></td>
-				<td class="team-type">{{ form.advisor_1_team_type }}</td>
-				<td class="team-hq_team">{{ form.advisor_1_hq_team }}</td>
-				<td>{{ form.advisor_1_location }}</td>
-			</tr>
-			<tr class="advisor">
-				<td>{{ form.advisor_2_name }} <span style="display: none;">{{ form.advisor_2_id }}</span></td>
-				<td class="team-type">{{ form.advisor_2_team_type }}</td>
-				<td class="team-hq_team">{{ form.advisor_2_hq_team }}</td>
-				<td>{{ form.advisor_2_location }}</td>
-			</tr>
-			<tr class="advisor">
-				<td>{{ form.advisor_3_name }} <span style="display: none;">{{ form.advisor_3_id }}</span></td>
-				<td class="team-type">{{ form.advisor_3_team_type }}</td>
-				<td class="team-hq_team">{{ form.advisor_3_hq_team }}</td>
-				<td>{{ form.advisor_3_location }}</td>
-			</tr>
-			<tr class="advisor">
-				<td>{{ form.advisor_4_name }} <span style="display: none;">{{ form.advisor_4_id }}</span></td>
-				<td class="team-type">{{ form.advisor_4_team_type }}</td>
-				<td class="team-hq_team">{{ form.advisor_4_hq_team }}</td>
-				<td>{{ form.advisor_4_location }}</td>
-			</tr>
-		</table>
 
 		<hr>
 

@@ -3,6 +3,7 @@
 @import "win-form";
 @import "confirmation-form";
 @import "my-wins";
+@import "win-details";
 
 $brand-color: #c81e53;
 
@@ -65,11 +66,6 @@ form {
 	}
 }
 
-.help-text {
-	color: #666666;
-	padding: 0.5em 0.5em 0.5em 0;
-}
-
 .form-group .alert {
 	padding: 0.5em;
 }
@@ -83,7 +79,7 @@ td.error input {
 }
 
 .form-group {
-	margin: 2em 0;
+	margin: 1em 0;
 }
 
 .form-group.error {

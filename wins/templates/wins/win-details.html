@@ -17,28 +17,154 @@
   </style>
 {% endblock css %}
 
+{% block breadcrumb-name %}View win{% endblock %}
+{% block header %}View win{% endblock header %}
+
 {% block content %}
 
-    <h1>Win</h1>
+{% comment %}
+'hq_team': 'team:1',
+'updated': '2016-08-04T14:49:27.046950Z',
+'description': 'my company supported',
+'customer_email_address': 'my@email.com',
+'location': '',
+'id': 'ecfce1b9-9d35-42ca-93f2-358041f8504b',
+'other_official_email_address': '',
+'customer_location': 3,
+'is_e_exported': True,
+'name_of_customer': 'overseas',
+'country': 'AS',
+'date': '2016-07-01',
+'is_line_manager_confirmed': True,
+'name_of_export': 'good exported',
+'type_of_support_1': 2,
+'company_name': 'my company',
+'user': 2,
+'associated_programme_1': None,
+'lead_officer_email_address': '',
+'lead_officer_name': 'graham',
+'hvo_programme': '',
+'is_personally_confirmed': True,
+'created': '2016-08-03T13:54:16.822080Z',
+'responded': None,
+'business_type': 'my business deal',
+'associated_programme_3': None,
+'goods_vs_services': 3,
+'line_manager_name': 'my manager',
+'type': 2,
+'total_expected_export_value': 10000,
+'associated_programme_2': None,
+'team_type': 'team',
+'type_of_support_3': None,
+'total_expected_non_export_value': 10000,
+'has_hvo_specialist_involvement': True,
+'customer_job_title': 'my job',
+'sector': 2,
+'complete': True,
+'cdms_reference': '123423423',
+'is_prosperity_fund_related': True,
+'customer_name': 'my contact',
+'sent': ['2016-08-04T14:49:27.052Z'],
+'type_of_support_2': None}
+{% endcomment %}
 
-    <h3>Lead officer's details</h3>
 
-    {% include "wins/win-details-element.html" with name="Lead Officer" val=win.lead_officer_name %}
-    {% include "wins/win-details-element.html" with name="Lead Officer's Email Address" val=win.lead_officer_email_address required=False %}
-    {% include "wins/win-details-element.html" with name="Other Official Email Address" val=win.other_official_email_address required=False %}
-    {% include "wins/win-details-element.html" with name="Team Type" val=win.team_type %}
-    {% include "wins/win-details-element.html" with name="HQ Team/Region/Post" val=win.hq_team %}
-    {% include "wins/win-details-element.html" with name="Location" val=win.location required=False %}
-    {% include "wins/win-details-element.html" with name="Line Manager" val=win.line_manager_name %}
+  <div class="win-details">
 
-    <h3>Customer's details</h3>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="h4">Customer details</h3>
+      </div>
+      <div class="panel-body">
+        <p>
+          <span class="sr-only">Company:</span><span class="company-name">{{ win.company_name }}</span> <span class="small text-muted">(CDMS Id: {{ win.cdms_reference }})</span><br>
+          Location: {{ win.customer_location }}
+        </p>
+        <p>
+          <span class="sr-only">Name:</span><span class="customer-name">{{ win.customer_name }}</span>
+          <span class="sr-only">Job title:</span><span class="text-muted">({{ win.customer_job_title }})</span><br>
+          <span class="glyphicon glyphicon-envelope"></span><span class="sr-only">Email:</span>{{ win.customer_email_address }}
+        </p>
+      </div>
+    </div>
 
-    {% include "wins/win-details-element.html" with name="Organisation or company name" val=win.company_name %}
-    {% include "wins/win-details-element.html" with name="Company's CDMS Reference" val=win.cdms_reference %}
-    {% include "wins/win-details-element.html" with name="Customer contact name" val=win.customer_name %}
-    {% include "wins/win-details-element.html" with name="Customer job title" val=win.customer_job_title %}
-    {% include "wins/win-details-element.html" with name="Customer email" val=win.customer_email_address %}
-    {% include "wins/win-details-element.html" with name="Customer or organisation HQ location" val=win.customer_location %}
+
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="h4">Lead officer details</h3>
+      </div>
+      <div class="panel-body">
+        <p>
+          <span class="sr-only">Name:</span><span class="customer-name">{{ win.lead_officer_name }}</span>
+         
+          {% if win.lead_officer_email_address %}
+          <span class="officer-email">
+            <span class="glyphicon glyphicon-envelope"></span><span class="sr-only">Email:</span>{{ win.lead_officer_email_address }}
+          </span>
+          {% endif %}
+
+          {% if win.other_official_email_address %}
+          <span class="glyphicon glyphicon-envelope"></span><span class="sr-only">Other Email:</span>{{ win.other_official_email_address }}
+          {% endif %}
+        </p>
+
+        <p>
+          Line manager: {{ win.line_manager_name }} <br>
+          Team: {{ win.team_type }} <br>
+          HQ Team/Region/Post: {{ win.hq_team }} <br>
+          Location: {{ win.location }}
+        </p>
+      </div>
+    </div>
+
+
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="h4">Contributing teams and advisers</h3>
+      </div>
+      <div class="panel-body">
+
+        <table id="advisors" class="advisors table table-responsive">
+          <tr>
+            <th>Name</th>
+            <th>Team Type</th>
+            <th>HQ Team<br />Region or Post</th>
+            <th>Location</th>
+          </tr>
+          <tr class="advisor">
+            <td>{{ form.advisor_0_name }}</td>
+            <td class="team-type">{{ form.advisor_0_team_type }}</td>
+            <td class="team-hq_team">{{ form.advisor_0_hq_team }}</td>
+            <td>{{ form.advisor_0_location }}</td>
+          </tr>
+          <tr class="advisor">
+            <td>{{ form.advisor_1_name }}</td>
+            <td class="team-type">{{ form.advisor_1_team_type }}</td>
+            <td class="team-hq_team">{{ form.advisor_1_hq_team }}</td>
+            <td>{{ form.advisor_1_location }}</td>
+          </tr>
+          <tr class="advisor">
+            <td>{{ form.advisor_2_name }}</td>
+            <td class="team-type">{{ form.advisor_2_team_type }}</td>
+            <td class="team-hq_team">{{ form.advisor_2_hq_team }}</td>
+            <td>{{ form.advisor_2_location }}</td>
+          </tr>
+          <tr class="advisor">
+            <td>{{ form.advisor_3_name }}</td>
+            <td class="team-type">{{ form.advisor_3_team_type }}</td>
+            <td class="team-hq_team">{{ form.advisor_3_hq_team }}</td>
+            <td>{{ form.advisor_3_location }}</td>
+          </tr>
+          <tr class="advisor">
+            <td>{{ form.advisor_4_name }}</td>
+            <td class="team-type">{{ form.advisor_4_team_type }}</td>
+            <td class="team-hq_team">{{ form.advisor_4_hq_team }}</td>
+            <td>{{ form.advisor_4_location }}</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
 
     <h3>Details of Export Win</h3>
 
@@ -100,49 +226,6 @@
 
     <hr />
 
-    <h3>
-      Contributing teams and advisers
-      <p>One individual or team per row.</p>
-    </h3>
-
-    <table id="advisors" class="advisors table table-responsive">
-      <tr>
-        <th>Name</th>
-        <th>Team Type</th>
-        <th>HQ Team<br />Region or Post</th>
-        <th>Location</th>
-      </tr>
-      <tr class="advisor">
-        <td>{{ form.advisor_0_name }}</td>
-        <td class="team-type">{{ form.advisor_0_team_type }}</td>
-        <td class="team-hq_team">{{ form.advisor_0_hq_team }}</td>
-        <td>{{ form.advisor_0_location }}</td>
-      </tr>
-      <tr class="advisor">
-        <td>{{ form.advisor_1_name }}</td>
-        <td class="team-type">{{ form.advisor_1_team_type }}</td>
-        <td class="team-hq_team">{{ form.advisor_1_hq_team }}</td>
-        <td>{{ form.advisor_1_location }}</td>
-      </tr>
-      <tr class="advisor">
-        <td>{{ form.advisor_2_name }}</td>
-        <td class="team-type">{{ form.advisor_2_team_type }}</td>
-        <td class="team-hq_team">{{ form.advisor_2_hq_team }}</td>
-        <td>{{ form.advisor_2_location }}</td>
-      </tr>
-      <tr class="advisor">
-        <td>{{ form.advisor_3_name }}</td>
-        <td class="team-type">{{ form.advisor_3_team_type }}</td>
-        <td class="team-hq_team">{{ form.advisor_3_hq_team }}</td>
-        <td>{{ form.advisor_3_location }}</td>
-      </tr>
-      <tr class="advisor">
-        <td>{{ form.advisor_4_name }}</td>
-        <td class="team-type">{{ form.advisor_4_team_type }}</td>
-        <td class="team-hq_team">{{ form.advisor_4_hq_team }}</td>
-        <td>{{ form.advisor_4_location }}</td>
-      </tr>
-    </table>
 
     <h3>Support provided</h3>
 
@@ -165,5 +248,7 @@
 
     <a href="{% url 'win-edit' win.id %}" class="btn btn-primary">edit</a>
     <a href="{% url 'win-complete' win.id %}" class="btn btn-primary">send</a>
+
+  </div>
 
 {% endblock content %}

@@ -8,6 +8,8 @@
 
 .win-form #id_description { height: 9em; }
 
+.win-form .help-text { margin-top: 0; color: #666666; padding: 0 0.5em 0.5em 0; }
+
 .confirmation-form .more-info { font-size: 1.1em; position: relative; top: -2px; }
 
 .confirmation-form .form-group label { float: left; max-width: 80%; }
@@ -48,6 +50,12 @@
 
 .my-wins .btn-responsive { margin-bottom: 1em; }
 
+.win-details .glyphicon { margin-right: 0.5em; }
+
+.win-details .company-name, .win-details .customer-name { font-size: 24px; }
+
+.win-details .officer-email { display: block; }
+
 body { border-top: 5px solid #c81e53; padding-top: 2.5em; }
 
 .logo-row { margin-top: -10px; }
@@ -72,15 +80,13 @@ form .end-buttons { text-align: right; }
 
 form input { padding-left: 2em; padding-right: 2em; }
 
-.help-text { color: #666666; padding: 0.5em 0.5em 0.5em 0; }
-
 .form-group .alert { padding: 0.5em; }
 
 table tr th { text-align: center; }
 
 td.error input { background-color: #f2dede; }
 
-.form-group { margin: 2em 0; }
+.form-group { margin: 1em 0; }
 
 .form-group.error { border: 1px solid #f2dede; border-radius: 0.5em; padding: 1em; }
 
