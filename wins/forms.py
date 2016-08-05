@@ -69,7 +69,7 @@ class WinForm(BootstrappedForm, metaclass=WinReflectiveFormMetaclass):
 
     # specify fields from the serializer to exclude from the form
     class Meta(object):
-        exclude = ("id", "user", "responded", "sent")
+        exclude = ("id", "user", "responded", "sent", "country_name")
 
     def __init__(self, *args, **kwargs):
 

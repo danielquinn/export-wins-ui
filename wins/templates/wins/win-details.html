@@ -185,6 +185,7 @@
 
     {% include "wins/win-details-element.html" with name="Total expected non-export value" val=win.total_expected_non_export_value %}
 
+    {# this should show all 5 years even if we don't have data... #}
     <table class="table table-responsive">
       <tr>
         <th>{{ win.breakdowns.non_exports.0.year }}</th>
