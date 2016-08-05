@@ -67,8 +67,9 @@ class WinForm(BootstrappedForm, metaclass=WinReflectiveFormMetaclass):
     # We're only caring about MM/YYYY formatted dates
     date = forms.fields.CharField(max_length=7, label="Date business won")
 
+    # specify fields from the serializer to exclude from the form
     class Meta(object):
-        exclude = ("id", "user")
+        exclude = ("id", "user", "responded")
 
     def __init__(self, *args, **kwargs):
 
@@ -190,28 +191,28 @@ class WinForm(BootstrappedForm, metaclass=WinReflectiveFormMetaclass):
             'patch',
         )
 
-        # for data in self._get_breakdown_data(win_id):
-        #     existing_breakdown_id = data['id']
-        #     ignore_or_delete_breakdown = not bool(data['value'])
-        #     # if it has an id already, update that breakdown
-        #     if existing_breakdown_id:
-        #         # if it does not have a name, but does have an id, delete it
-        #         if ignore_or_delete_breakdown:
-        #             rabbit.push(
-        #                 settings.BREAKDOWNS_AP + str(existing_breakdown_id) + '/',
-        #                 data,
-        #                 self.request,
-        #                 'delete',
-        #             )
-        #         else:
-        #             rabbit.push(
-        #                 settings.BREAKDOWNS_AP + str(existing_breakdown_id) + '/',
-        #                 data,
-        #                 self.request,
-        #                 'patch',
-        #             )
-        #     elif not ignore_or_delete_breakdown:
-        #         rabbit.push(settings.BREAKDOWNS_AP, data, self.request)
+        for data in self._get_breakdown_data(win_id):
+            existing_breakdown_id = data['id']
+            ignore_or_delete_breakdown = not bool(data['value'])
+            # if it has an id already, update that breakdown
+            if existing_breakdown_id:
+                # if it does not have a name, but does have an id, delete it
+                if ignore_or_delete_breakdown:
+                    rabbit.push(
+                        settings.BREAKDOWNS_AP + str(existing_breakdown_id) + '/',
+                        data,
+                        self.request,
+                        'delete',
+                    )
+                else:
+                    rabbit.push(
+                        settings.BREAKDOWNS_AP + str(existing_breakdown_id) + '/',
+                        data,
+                        self.request,
+                        'patch',
+                    )
+            elif not ignore_or_delete_breakdown:
+                rabbit.push(settings.BREAKDOWNS_AP, data, self.request)
 
         for data in self._get_advisor_data(win_id):
             existing_advisor_id = data['id']
@@ -271,13 +272,14 @@ class WinForm(BootstrappedForm, metaclass=WinReflectiveFormMetaclass):
     def _add_breakdown_initial(self, breakdowns):
         """ Add breakdown data to `initial` """
 
-        year_type_to_breakdown = {
+        # make dict in order to know which value matches which field
+        self.year_type_to_breakdown = {
             '{}-{}'.format(b['year'], b['type']): b
             for b in breakdowns
         }
         for field_name, year, breakdown_type in self.breakdown_field_data:
             breadkdown_typenum = "1" if breakdown_type == "exports" else "2"
-            breakdown = year_type_to_breakdown.get(
+            breakdown = self.year_type_to_breakdown.get(
                 '{}-{}'.format(year, breadkdown_typenum)
             )
             if breakdown:
@@ -289,10 +291,13 @@ class WinForm(BootstrappedForm, metaclass=WinReflectiveFormMetaclass):
         retval = []
         for field_name, year, breakdown_type in self.breakdown_field_data:
             value = self.cleaned_data.get(field_name)
-            print(field_name, value)
+            breadkdown_typenum = "1" if breakdown_type == "exports" else "2"
+            breakdown = self.year_type_to_breakdown.get(
+                '{}-{}'.format(year, breadkdown_typenum)
+            )
             retval.append({
-                # "id": hmmm,
-                "type": "1" if breakdown_type == "exports" else "2",
+                "id": breakdown['id'] if breakdown else None,
+                "type": breadkdown_typenum,
                 "year": year,
                 "value": value or 0,
                 "win": win_id,

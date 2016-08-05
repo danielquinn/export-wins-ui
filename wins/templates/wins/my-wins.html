@@ -35,6 +35,20 @@
 
     <h2>My Wins</h2>
 
+    {% for win in unsent %}
+        unsent: {{ win.company_name }} <br>
+    {% endfor %}
+    <hr>
+    {% for win in sent %}
+        sent: {{ win.company_name }} <br>
+    {% endfor %}
+    <hr>
+    {% for win in responded %}
+        responded: {{ win.company_name }} <br>
+    {% endfor %}
+    <br><hr>
+
+
     {% if wins.results %}
         <table>
             <tr>

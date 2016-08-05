@@ -23,8 +23,14 @@ class MyWinsView(LoginRequiredMixin, TemplateView):
         context = TemplateView.get_context_data(self, **kwargs)
 
         url = settings.WINS_AP + '?user__id=' + str(self.request.user.id)
-        wins = rabbit.get(url, request=self.request).json()
-        context['wins'] = wins
+        win_response = rabbit.get(url, request=self.request).json()
+        wins = win_response['results']
+        context['unsent'] = [w for w in wins if not w['complete']]
+        context['responded'] = [w for w in wins if w['responded']]
+        context['sent'] = [
+            w for w in wins
+            if w['complete'] and w not in context['responded']
+        ]
         return context
 
 
