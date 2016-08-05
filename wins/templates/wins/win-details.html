@@ -124,25 +124,36 @@
       </div>
       <div class="panel-body">
 
-            <table id="advisors" class="advisors table table-responsive">
-            <tr>
-              <th>Name</th>
-              <th>Team Type</th>
-              <th>HQ Team<br />Region or Post</th>
-              <th>Location</th>
-            </tr>
-            {% for advisor in win.advisors %}
-              <tr class="advisor">
-                <td>{{ advisor.name }}</td>
-                <td class="team-type">{{ advisor.team_type }}</td>
-                <td class="team-hq_team">{{ advisor.hq_team }}</td>
-                <td>{{ advisor.location }}</td>
+            {% if win.advisors %}
+
+              <table id="advisors" class="advisors table table-responsive">
+              <tr>
+                <th>Name</th>
+                <th>Team Type</th>
+                <th>HQ Team<br />Region or Post</th>
+                <th>Location</th>
               </tr>
-            {% endfor %}
-          </table>
+              {% for advisor in win.advisors %}
+                <tr class="advisor">
+                  <td>{{ advisor.name }}</td>
+                  <td class="team-type">{{ advisor.team_type }}</td>
+                  <td class="team-hq_team">{{ advisor.hq_team }}</td>
+                  <td>{{ advisor.location }}</td>
+                </tr>
+              {% endfor %}
+            </table>
+
+            {% else %}
+
+              <p class="text-center">
+                No contributing teams and advisers.
+              </p>
+
+            {% endif %}
       </div>
     </div>
 
+    <hr>
 
     <h3>Details of Export Win</h3>
 
