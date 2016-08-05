@@ -124,44 +124,22 @@
       </div>
       <div class="panel-body">
 
-        <table id="advisors" class="advisors table table-responsive">
-          <tr>
-            <th>Name</th>
-            <th>Team Type</th>
-            <th>HQ Team<br />Region or Post</th>
-            <th>Location</th>
-          </tr>
-          <tr class="advisor">
-            <td>{{ form.advisor_0_name }}</td>
-            <td class="team-type">{{ form.advisor_0_team_type }}</td>
-            <td class="team-hq_team">{{ form.advisor_0_hq_team }}</td>
-            <td>{{ form.advisor_0_location }}</td>
-          </tr>
-          <tr class="advisor">
-            <td>{{ form.advisor_1_name }}</td>
-            <td class="team-type">{{ form.advisor_1_team_type }}</td>
-            <td class="team-hq_team">{{ form.advisor_1_hq_team }}</td>
-            <td>{{ form.advisor_1_location }}</td>
-          </tr>
-          <tr class="advisor">
-            <td>{{ form.advisor_2_name }}</td>
-            <td class="team-type">{{ form.advisor_2_team_type }}</td>
-            <td class="team-hq_team">{{ form.advisor_2_hq_team }}</td>
-            <td>{{ form.advisor_2_location }}</td>
-          </tr>
-          <tr class="advisor">
-            <td>{{ form.advisor_3_name }}</td>
-            <td class="team-type">{{ form.advisor_3_team_type }}</td>
-            <td class="team-hq_team">{{ form.advisor_3_hq_team }}</td>
-            <td>{{ form.advisor_3_location }}</td>
-          </tr>
-          <tr class="advisor">
-            <td>{{ form.advisor_4_name }}</td>
-            <td class="team-type">{{ form.advisor_4_team_type }}</td>
-            <td class="team-hq_team">{{ form.advisor_4_hq_team }}</td>
-            <td>{{ form.advisor_4_location }}</td>
-          </tr>
-        </table>
+            <table id="advisors" class="advisors table table-responsive">
+            <tr>
+              <th>Name</th>
+              <th>Team Type</th>
+              <th>HQ Team<br />Region or Post</th>
+              <th>Location</th>
+            </tr>
+            {% for advisor in win.advisors %}
+              <tr class="advisor">
+                <td>{{ advisor.name }}</td>
+                <td class="team-type">{{ advisor.team_type }}</td>
+                <td class="team-hq_team">{{ advisor.hq_team }}</td>
+                <td>{{ advisor.location }}</td>
+              </tr>
+            {% endfor %}
+          </table>
       </div>
     </div>
 
@@ -185,18 +163,18 @@
 
    <table class="table table-responsive">
       <tr>
-        <th>{{ form.breakdown_exports_0.label_tag }}</th>
-        <th>{{ form.breakdown_exports_1.label_tag }}</th>
-        <th>{{ form.breakdown_exports_2.label_tag }}</th>
-        <th>{{ form.breakdown_exports_3.label_tag }}</th>
-        <th>{{ form.breakdown_exports_4.label_tag }}</th>
+        <th>{{ win.breakdowns.exports.0.year }}</th>
+        <th>{{ win.breakdowns.exports.1.year }}</th>
+        <th>{{ win.breakdowns.exports.2.year }}</th>
+        <th>{{ win.breakdowns.exports.3.year }}</th>
+        <th>{{ win.breakdowns.exports.4.year }}</th>
       </tr>
       <tr>
-        <td>{{ win.breakdown_exports_0 }}</td>
-        <td>{{ win.breakdown_exports_1 }}</td>
-        <td>{{ win.breakdown_exports_2 }}</td>
-        <td>{{ win.breakdown_exports_3 }}</td>
-        <td>{{ win.breakdown_exports_4 }}</td>
+        <td>{{ win.breakdowns.exports.0.value }}</td>
+        <td>{{ win.breakdowns.exports.1.value }}</td>
+        <td>{{ win.breakdowns.exports.2.value }}</td>
+        <td>{{ win.breakdowns.exports.3.value }}</td>
+        <td>{{ win.breakdowns.exports.4.value }}</td>
       </tr>
     </table>
 
@@ -209,18 +187,18 @@
 
     <table class="table table-responsive">
       <tr>
-        <th>{{ form.breakdown_non_exports_0.label_tag }}</th>
-        <th>{{ form.breakdown_non_exports_1.label_tag }}</th>
-        <th>{{ form.breakdown_non_exports_2.label_tag }}</th>
-        <th>{{ form.breakdown_non_exports_3.label_tag }}</th>
-        <th>{{ form.breakdown_non_exports_4.label_tag }}</th>
+        <th>{{ win.breakdowns.non_exports.0.year }}</th>
+        <th>{{ win.breakdowns.non_exports.1.year }}</th>
+        <th>{{ win.breakdowns.non_exports.2.year }}</th>
+        <th>{{ win.breakdowns.non_exports.3.year }}</th>
+        <th>{{ win.breakdowns.non_exports.4.year }}</th>
       </tr>
       <tr>
-        <td>{{ win.breakdown_non_exports_0 }}</td>
-        <td>{{ win.breakdown_non_exports_1 }}</td>
-        <td>{{ win.breakdown_non_exports_2 }}</td>
-        <td>{{ win.breakdown_non_exports_3 }}</td>
-        <td>{{ win.breakdown_non_exports_4 }}</td>
+        <td>{{ win.breakdowns.non_exports.0.value }}</td>
+        <td>{{ win.breakdowns.non_exports.1.value }}</td>
+        <td>{{ win.breakdowns.non_exports.2.value }}</td>
+        <td>{{ win.breakdowns.non_exports.3.value }}</td>
+        <td>{{ win.breakdowns.non_exports.4.value }}</td>
       </tr>
     </table>
 

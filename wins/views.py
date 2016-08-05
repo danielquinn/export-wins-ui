@@ -25,6 +25,7 @@ class MyWinsView(LoginRequiredMixin, TemplateView):
         url = settings.WINS_AP + '?user__id=' + str(self.request.user.id)
         win_response = rabbit.get(url, request=self.request).json()
         wins = win_response['results']
+
         # parse dates
         for win in wins:
             win['created'] = date_parser(win['created'])
@@ -35,6 +36,8 @@ class MyWinsView(LoginRequiredMixin, TemplateView):
                 win['responded']['created'] = (
                     date_parser(win['responded']['created'])
                 )
+
+        # split wins up for user
         context['unsent'] = [w for w in wins if not w['complete']]
         context['responded'] = [w for w in wins if w['responded']]
         context['sent'] = [
@@ -51,6 +54,12 @@ def get_win(win_id, request):
         raise Http404
     else:
         return resp.json()['results'][0]
+
+
+def get_limited_win(win_id, request):
+    url = "{}{}/".format(settings.LIMITED_WINS_AP, win_id)
+    resp = rabbit.get(url, request=request)
+    return resp
 
 
 def get_win_advisors(win_id, request):
@@ -78,7 +87,10 @@ class WinView(LoginRequiredMixin, TemplateView):
 
     def get_context_data(self, **kwargs):
         context = TemplateView.get_context_data(self, **kwargs)
-        context['win'] = get_win(kwargs['win_id'], self.request)
+        resp = get_limited_win(kwargs['win_id'], self.request)
+        if resp.status_code != 200:
+            raise Http404
+        context['win'] = resp.json()
         return context
 
 
@@ -255,8 +267,7 @@ class ConfirmationView(FormView):
     def _get_valid_win(self, pk, request):
         """ Raise SecurityException if Win not valid, else return Win dict """
 
-        win_url = "{}{}/".format(settings.LIMITED_WINS_AP, pk)
-        win_resp = rabbit.get(win_url, request=request)
+        win_resp = get_limited_win(pk, request)
 
         # likely because already submitted
         if not win_resp.status_code == 200:
