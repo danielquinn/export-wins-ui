@@ -25,6 +25,16 @@ class MyWinsView(LoginRequiredMixin, TemplateView):
         url = settings.WINS_AP + '?user__id=' + str(self.request.user.id)
         win_response = rabbit.get(url, request=self.request).json()
         wins = win_response['results']
+        # parse dates
+        for win in wins:
+            win['created'] = date_parser(win['created'])
+            if win['updated']:
+                win['updated'] = date_parser(win['updated'])
+            win['sent'] = [date_parser(d) for d in win['sent']]
+            if win['responded']:
+                win['responded']['created'] = (
+                    date_parser(win['responded']['created'])
+                )
         context['unsent'] = [w for w in wins if not w['complete']]
         context['responded'] = [w for w in wins if w['responded']]
         context['sent'] = [
