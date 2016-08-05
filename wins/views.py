@@ -231,10 +231,9 @@ class ConfirmationView(FormView):
     def get_context_data(self, **kwargs):
         """ Get Win data for use in the template """
 
-        win_dict = self.win_dict
-        win_dict['date'] = date_parser(win_dict['date'])
         context = FormView.get_context_data(self, **kwargs)
-        context.update({"win": win_dict})
+        context.update({"win": self.win_dict})
+        context['win']['date'] = date_parser(self.win_dict['date'])
         return context
 
     def get_success_url(self):
