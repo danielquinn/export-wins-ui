@@ -229,21 +229,12 @@ class ConfirmationView(FormView):
         return kwargs
 
     def get_context_data(self, **kwargs):
-        """ Get Win data for use in the template
+        """ Get Win data for use in the template """
 
-        Not sure why this gets the schema, doesn't seem necessary
-
-        """
-        schema_url = "{}schema/".format(settings.WINS_AP)
-        win_schema = rabbit.get(schema_url).json()
-
-        for key, value in self.win_dict.items():
-            if key == "date":
-                value = date_parser(value)
-            win_schema[key]["value"] = value
-
+        win_dict = self.win_dict
+        win_dict['date'] = date_parser(win_dict['date'])
         context = FormView.get_context_data(self, **kwargs)
-        context.update({"win": win_schema})
+        context.update({"win": win_dict})
         return context
 
     def get_success_url(self):
