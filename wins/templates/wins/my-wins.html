@@ -2,66 +2,104 @@
 
 {% load staticfiles %}
 
-{% block css %}
-  {{ block.super }}
-  <style>
-    th {
-        text-align: left!important;
-        font-weight: bold;
-        font-size: 1.3em;
-        padding: 0 1em .8em 0;
-    }
-    td {
-        padding: 0 0 .5em 0;
-    }
-    .company {
-        font-size: 1.4em;
-        margin-right: 2em;
-    }
-    .edit {
-        margin-right: 2em;
-    }
-    .sent {
-        font-size: 1.1em;
-        margin-right: 2em;
-    }
-  </style>
-{% endblock css %}
+{% block header %}Your export wins{% endblock header %}
 
 {% block content %}
 
-    <a href="{% url 'new-win' %}" class="btn btn-primary">Record a New Export Win</a>
-    <br><br>
+    <div class="my-wins">
+        
+        <a href="{% url 'new-win' %}" class="btn btn-primary btn-responsive">Record new win</a>
 
-    <h2>My Wins</h2>
+        {% if wins.results %}
 
-    {% if wins.results %}
-        <table>
-            <tr>
-                <th>
-                    Company
-                </th>
-                <th>
-                    Sent
-                </th>
-            </tr>
-            {% for win in wins.results %}
+            <h3>Unsent wins <span class="badge">{{ wins.results | length }}</span></h3>
+
+            <table class="table table-striped">
                 <tr>
-                    <td>
-                        <a href="{% url 'win-details' win.id %}" class="company">{{ win.company_name }}</a>
-                    </td>
-                    <td class="sent">
-                        {% if win.complete %}
-                            <span class="sent">sent to customer</sent>
-                        {% else %}
-                            <a href="{% url 'win-complete' win.id %}" class="btn btn-primary edit">send to customer</a>
-                        {% endif %}
-                    </td>
+                    <th>
+                        Company
+                    </th>
+                    <th>
+                        Sent
+                    </th>
                 </tr>
-            {% endfor %}
-        </table>
-    {% else %}
-        You have not yet recorded any wins
-    {% endif %}
+                {% for win in wins.results %}
+                    <tr>
+                        <td>
+                            <a href="{% url 'win-details' win.id %}">{{ win.company_name }}</a>
+                        </td>
+                        <td class="sent">
+                            {% if win.complete %}
+                                sent to customer
+                            {% else %}
+                                <a href="{% url 'win-complete' win.id %}" class="btn btn-primary">send to customer</a>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
 
+
+            <h3>Sent to customer <span class="badge">2</span></h3>
+
+            <table class="table table-striped">
+                <tr>
+                    <th>
+                        Company
+                    </th>
+                    <th>
+                        Sent
+                    </th>
+                </tr>
+                {% for win in wins.results %}
+                    <tr>
+                        <td>
+                            <a href="{% url 'win-details' win.id %}">{{ win.company_name }}</a>
+                        </td>
+                        <td class="sent">
+                            {% if win.complete %}
+                                sent to customer
+                            {% else %}
+                                <a href="{% url 'win-complete' win.id %}" class="btn btn-primary">send to customer</a>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+
+            <h3>Customer responded <span class="badge">6</span></h3>
+
+            <table class="table table-striped">
+                <tr>
+                    <th>
+                        Company
+                    </th>
+                    <th>
+                        Sent
+                    </th>
+                </tr>
+                {% for win in wins.results %}
+                    <tr>
+                        <td>
+                            <a href="{% url 'win-details' win.id %}">{{ win.company_name }}</a>
+                        </td>
+                        <td class="sent">
+                            {% if win.complete %}
+                                sent to customer
+                            {% else %}
+                                <a href="{% url 'win-complete' win.id %}" class="btn btn-primary">send to customer</a>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+
+        {% else %}
+
+            <p>You have not yet recorded any wins</p>
+
+        {% endif %}
+
+    </div>
+    
 {% endblock content %}

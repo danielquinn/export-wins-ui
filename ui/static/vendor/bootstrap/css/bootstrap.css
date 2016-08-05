@@ -1,3 +1,4 @@
+@charset "UTF-8";
 /*! Bootstrap v3.3.7 (http://getbootstrap.com) Copyright 2011-2016 Twitter, Inc. Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE) */
 /*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */
 html { font-family: sans-serif; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; }
@@ -1866,6 +1867,14 @@ input[type="submit"].btn-block, input[type="reset"].btn-block, input[type="butto
 
 .navbar-inverse .btn-link[disabled]:hover, .navbar-inverse .btn-link[disabled]:focus, fieldset[disabled] .navbar-inverse .btn-link:hover, fieldset[disabled] .navbar-inverse .btn-link:focus { color: #444; }
 
+.breadcrumb { padding: 8px 15px; margin-bottom: 20px; list-style: none; background-color: #f5f5f5; border-radius: 4px; }
+
+.breadcrumb > li { display: inline-block; }
+
+.breadcrumb > li + li:before { content: "/ "; padding: 0 5px; color: #ccc; }
+
+.breadcrumb > .active { color: #777777; }
+
 .label { display: inline; padding: .2em .6em .3em; font-size: 75%; font-weight: bold; line-height: 1; color: #fff; text-align: center; white-space: nowrap; vertical-align: baseline; border-radius: .25em; }
 
 .label:empty { display: none; }
@@ -1897,6 +1906,24 @@ a.label:hover, a.label:focus { color: #fff; text-decoration: none; cursor: point
 .label-danger { background-color: #e52325; }
 
 .label-danger[href]:hover, .label-danger[href]:focus { background-color: #be1718; }
+
+.badge { display: inline-block; min-width: 10px; padding: 3px 7px; font-size: 12px; font-weight: bold; color: #fff; line-height: 1; vertical-align: middle; white-space: nowrap; text-align: center; background-color: #777777; border-radius: 10px; }
+
+.badge:empty { display: none; }
+
+.btn .badge { position: relative; top: -1px; }
+
+.btn-xs .badge, .btn-group-xs > .btn .badge, .btn-group-xs > .btn .badge { top: 0; padding: 1px 5px; }
+
+.list-group-item.active > .badge, .nav-pills > .active > a > .badge { color: #00549F; background-color: #fff; }
+
+.list-group-item > .badge { float: right; }
+
+.list-group-item > .badge + .badge { margin-right: 5px; }
+
+.nav-pills > li > a > .badge { margin-left: 3px; }
+
+a.badge:hover, a.badge:focus { color: #fff; text-decoration: none; cursor: pointer; }
 
 .alert { padding: 15px; margin-bottom: 20px; border: 1px solid transparent; border-radius: 4px; }
 
