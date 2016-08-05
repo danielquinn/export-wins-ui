@@ -47,7 +47,7 @@
                     {% for win in unsent %}
                         <tr>
                             <td><a href="{% url 'win-details' win.id %}">{{ win.company_name }}</a></td>
-                            <td>{{ win.country }}</td>
+                            <td>{{ win.country_name }}</td>
                             <td>{{ win.customer_name }}</td>
                             <td>{{ win.total_expected_export_value | intcomma }}</td>
                             <td>{{ win.date }}</td>
@@ -80,7 +80,7 @@
                     {% for win in sent %}
                         <tr>
                            <td><a href="{% url 'win-details' win.id %}">{{ win.company_name }}</a></td>
-                           <td>{{ win.country }}</td>
+                           <td>{{ win.country_name }}</td>
                            <td>{{ win.customer_name }}</td>
                            <td>{{ win.total_expected_export_value | intcomma }}</td>
                            <td>{{ win.date }}</td>
@@ -104,7 +104,7 @@
                     <tr>
                         <th>UK Company</th>
                         <th>Export to</th>
-                        <th>Value achieved without our support?</th>
+                        <th>Value attributed to our help</th>
                         <th>Export amount (&pound;)</th>
                         <th>Date won</th>
                         <th>Date responded</th>
@@ -112,8 +112,8 @@
                     {% for win in responded %}
                         <tr>
                             <td><a href="{% url 'win-details' win.id %}">{{ win.company_name }}</a></td>
-                            <td>{{ win.country }}</td>
-                            <td>{{ win.responded.without_our_help }}</td>
+                            <td>{{ win.country_name }}</td>
+                            <td>{{ win.responded.our_help }}</td>
                             <td>{{ win.total_expected_export_value | intcomma }}</td>
                             <td>{{ win.date }}</td>
                             <td>{{ win.responded.created }}</td>
