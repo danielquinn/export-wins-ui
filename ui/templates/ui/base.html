@@ -7,7 +7,10 @@
     <title>UKTI Export Wins{% block title %}{% endblock title %}</title>
     <link rel="stylesheet" href="{% static 'vendor/bootstrap/css/bootstrap.css' %}">
     <link rel="stylesheet" href="{% static 'ui/css/main.css' %}">
-    <!--[if lte IE 7]><link href="{% static 'ui/css/ie7.css' %}" media="screen" rel="stylesheet" /><![endif]-->
+    <!--[if lte IE 7]>
+      <link href="{% static 'ui/css/bootstrap-ie7.css' %}" media="screen" rel="stylesheet">
+      <link href="{% static 'ui/css/ie7.css' %}" media="screen" rel="stylesheet">
+    <![endif]-->
 
     {% block css %}{% endblock css %}
 

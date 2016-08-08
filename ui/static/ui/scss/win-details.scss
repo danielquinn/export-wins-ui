@@ -15,4 +15,65 @@
 	.officer-email {
 		display: block;
 	}
+
+	.export-value-item {
+
+		list-style: none;
+		clear: left;
+
+		span {
+			
+			padding: 0.5em 1em;
+			float: left;
+			border: 1px solid $gray-light;
+			border-bottom: 0;
+			margin: 0;
+		}
+
+		.export-year {
+			background-color: $gray-lighter;
+			width: 6em;
+		}
+		
+		.export-year-value {
+			border-left: 0;
+			width: 10em;
+			text-align: right;
+		}
+	}
+
+	.export-value-group {
+
+		display: table;
+
+		.first {
+
+			.export-year {
+
+				border-radius: 5px 0 0 0;
+			}
+
+			.export-year-value {
+			
+				border-radius: 0 5px 0 0;
+			}
+		}
+
+		.last {
+
+			span {
+				border-top: 2px solid $gray-light;
+				border-bottom: 1px solid $gray-light;
+				font-weight: bold;
+			}
+
+			.export-year {
+				border-radius: 0 0 0 5px;
+			}
+
+			.export-year-value {
+				border-radius: 0 0 5px 0
+			}
+		}
+	}
 }

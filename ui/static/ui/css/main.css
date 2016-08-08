@@ -56,6 +56,26 @@
 
 .win-details .officer-email { display: block; }
 
+.win-details .export-value-item { list-style: none; clear: left; }
+
+.win-details .export-value-item span { padding: 0.5em 1em; float: left; border: 1px solid #777777; border-bottom: 0; margin: 0; }
+
+.win-details .export-value-item .export-year { background-color: #eeeeee; width: 6em; }
+
+.win-details .export-value-item .export-year-value { border-left: 0; width: 10em; text-align: right; }
+
+.win-details .export-value-group { display: table; }
+
+.win-details .export-value-group .first .export-year { border-radius: 5px 0 0 0; }
+
+.win-details .export-value-group .first .export-year-value { border-radius: 0 5px 0 0; }
+
+.win-details .export-value-group .last span { border-top: 2px solid #777777; border-bottom: 1px solid #777777; font-weight: bold; }
+
+.win-details .export-value-group .last .export-year { border-radius: 0 0 0 5px; }
+
+.win-details .export-value-group .last .export-year-value { border-radius: 0 0 5px 0; }
+
 body { border-top: 5px solid #c81e53; padding-top: 2.5em; }
 
 .logo-row { margin-top: -10px; }
@@ -102,6 +122,8 @@ input[type='number'] { -moz-appearance: textfield; }
 input::-webkit-outer-spin-button, input::-webkit-inner-spin-button { -webkit-appearance: none; }
 
 .footer { border-top: 3px solid #555555; margin-top: 4em; margin-bottom: 3em; padding-top: 4em; }
+
+.footer img { height: 100px; }
 
 @media (max-width: 768px) { .logo-row .logo { height: 70px; }
   .btn-responsive, form .end-buttons .btn { width: 100%; } }

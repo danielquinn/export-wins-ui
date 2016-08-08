@@ -156,38 +156,63 @@
     <hr>
 
     <h3>Details of Export Win</h3>
+    
+    <div class="row">
+      <div class="col-sm-6">
+        {% include "wins/win-details-element.html" with name="Date won" val=win.date %}
+      </div>
+      <div class="col-sm-6">
+        {% include "wins/win-details-element.html" with name="Country" val=win.country %}
+      </div>
+    </div>
+    
+    {% include "wins/win-details-element.html" with name="Business deal that best describes the win" val=win.business_type %}
+    {% include "wins/win-details-element.html" with name="How the company was supported in achieving the win" val=win.description %}
+    {% include "wins/win-details-element.html" with name="Name of their overseas customer" val=win.name_of_customer %}
+    {% include "wins/win-details-element.html" with name="Goods or services that are being exported" val=win.name_of_export %}
 
-    {% include "wins/win-details-element.html" with name="What kind of business deal best describes this win" val=win.business_type %}
-    {% include "wins/win-details-element.html" with name="How was the company supported in achieving this win" val=win.description %}
-    {% include "wins/win-details-element.html" with name="What is the name of their overseas customer" val=win.name_of_customer %}
-    {% include "wins/win-details-element.html" with name="What are the goods or services that are being exported" val=win.name_of_export %}
-    {% include "wins/win-details-element.html" with name="Date business won" val=win.date %}
-    {% include "wins/win-details-element.html" with name="Country" val=win.country %}
+    <hr>
 
     <h3>Expected value of the win</h3>
 
-    {% include "wins/win-details-element.html" with name="Type of win" val=win.type %}
+    {% include "wins/win-details-element.html" with name="Type" val=win.type %}
 
     <h4>Export value</h4>
 
-    {% include "wins/win-details-element.html" with name="Total expected export value" val=win.total_expected_export_value %}
+    <p>
+      Total export value over the next 5 years.
+    </p>
 
-   <table class="table table-responsive">
-      <tr>
-        <th>{{ win.breakdowns.exports.0.year }}</th>
-        <th>{{ win.breakdowns.exports.1.year }}</th>
-        <th>{{ win.breakdowns.exports.2.year }}</th>
-        <th>{{ win.breakdowns.exports.3.year }}</th>
-        <th>{{ win.breakdowns.exports.4.year }}</th>
-      </tr>
-      <tr>
-        <td>{{ win.breakdowns.exports.0.value }}</td>
-        <td>{{ win.breakdowns.exports.1.value }}</td>
-        <td>{{ win.breakdowns.exports.2.value }}</td>
-        <td>{{ win.breakdowns.exports.3.value }}</td>
-        <td>{{ win.breakdowns.exports.4.value }}</td>
-      </tr>
-    </table>
+    <div class="row">
+      <div class="col-sm-6">
+        <ol class="export-value-group">
+          <li class="export-value-item first">
+            <span class="export-year">{{ win.breakdowns.exports.0.year }}</span>
+            <span class="export-year-value">&pound;{{ win.breakdowns.exports.0.value }}</span>
+          </li>
+          <li class="export-value-item">
+            <span class="export-year">{{ win.breakdowns.exports.1.year }}</span>
+            <span class="export-year-value">&pound;{{ win.breakdowns.exports.1.value }}</span>
+          </li>
+          <li class="export-value-item">
+            <span class="export-year">{{ win.breakdowns.exports.2.year }}</span>
+            <span class="export-year-value">&pound;{{ win.breakdowns.exports.2.value }}</span>
+          </li>
+          <li class="export-value-item">
+            <span class="export-year">{{ win.breakdowns.exports.3.year }}</span>
+            <span class="export-year-value">&pound;{{ win.breakdowns.exports.3.value }}</span>
+          </li>
+          <li class="export-value-item">
+            <span class="export-year">{{ win.breakdowns.exports.4.year }}</span>
+            <span class="export-year-value">&pound;{{ win.breakdowns.exports.4.value }}</span>
+          </li>
+          <li class="export-value-item last">
+            <span class="export-year">Total</span>
+            <span class="export-year-value">&pound;{{ win.total_expected_export_value }}</span>
+          </li>
+         </ol>
+      </div>
+    </div>
 
     {% include "wins/win-details-element.html" with name="Does the expected export value relate to goods or services" val=win.goods_vs_services %}
     {% include "wins/win-details-element.html" with name="Sector" val=win.sector %}
