@@ -62,6 +62,12 @@ def get_limited_win(win_id, request):
     return resp
 
 
+def get_win_details(win_id, request):
+    url = "{}{}/".format(settings.WIN_DETAILS_AP, win_id)
+    resp = rabbit.get(url, request=request)
+    return resp
+
+
 def get_win_advisors(win_id, request):
     url = settings.ADVISORS_AP + '?win__id=' + win_id
     resp = rabbit.get(url, request=request)
@@ -87,7 +93,7 @@ class WinView(LoginRequiredMixin, TemplateView):
 
     def get_context_data(self, **kwargs):
         context = TemplateView.get_context_data(self, **kwargs)
-        resp = get_limited_win(kwargs['win_id'], self.request)
+        resp = get_win_details(kwargs['win_id'], self.request)
         if resp.status_code != 200:
             raise Http404
         context['win'] = resp.json()
