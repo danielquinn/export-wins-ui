@@ -141,6 +141,9 @@
 			<div class="clearfix"></div>
 		</div>
 
+		{% include "wins/win-field.html" with field=form.goods_vs_services %}
+		{% include "wins/win-field.html" with field=form.sector %}
+
 		<hr>
 
 		<h4>Export value</h4>
@@ -163,11 +166,6 @@
 				<td {% if form.breakdown_exports_4.errors %} class="error"{% endif %}>{{ form.breakdown_exports_4 }}</td>
 			</tr>
 		</table>
-
-		{% include "wins/win-field.html" with field=form.goods_vs_services %}
-		{% include "wins/win-field.html" with field=form.sector %}
-
-		<hr>
 
 		<h4>Non-export value</h4>
 
