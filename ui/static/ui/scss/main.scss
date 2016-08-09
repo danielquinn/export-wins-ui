@@ -4,6 +4,7 @@
 @import "confirmation-form";
 @import "my-wins";
 @import "win-details";
+@import "success";
 
 $brand-color: #c81e53;
 
@@ -123,6 +124,11 @@ input::-webkit-inner-spin-button {
 	}
 }
 
+.btn-responsive,
+.end-buttons .btn {
+	min-width: 120px;
+}
+
 @media( max-width:$screen-sm-min ){
 
 	.logo-row .logo {
@@ -132,6 +138,9 @@ input::-webkit-inner-spin-button {
 	.btn-responsive,
 	form .end-buttons .btn {
 		width: 100%;
+		margin-bottom: 1em;
+		margin-left: 0 !important;
+		margin-right: 0 !important;
 	}
 
 	.non-export-heading {

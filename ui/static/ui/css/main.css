@@ -48,7 +48,9 @@
   .confirmation-form .form-group .btn-group { float: none !important; width: 100%; }
   .confirmation-form .radio label, .confirmation-form .checkbox label { width: 100%; } }
 
-.my-wins .btn-responsive { margin-bottom: 1em; }
+.my-wins .new-win-bottom-btn { margin-top: 1em; }
+
+.my-wins .my-wins-header { margin-top: 2.5em; }
 
 .win-details .glyphicon { margin-right: 0.5em; }
 
@@ -83,6 +85,22 @@
 .win-details .field-name { font-weight: bold; margin-bottom: 0.5em; }
 
 .win-details .field-value { margin-bottom: 1.5em; }
+
+.success-buttons .btn { margin-left: 1em; }
+
+.success-buttons .btn:first-of-type { margin-left: 0; }
+
+.success-page-alert { font-size: 1.2em; }
+
+.success-feedback-message { color: #777777; margin-top: 2em; }
+
+.success-page-lead { margin: 1.5em 0 3em 0; }
+
+.success-actions { margin-bottom: 4em; }
+
+.success-actions .btn { margin-right: 1em; }
+
+.success-actions .btn:last-of-type { margin-right: 0; }
 
 body { border-top: 5px solid #c81e53; padding-top: 2.5em; }
 
@@ -133,8 +151,10 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button { -webkit-app
 
 .footer img { height: 100px; }
 
+.btn-responsive, .end-buttons .btn { min-width: 120px; }
+
 @media (max-width: 768px) { .logo-row .logo { height: 70px; }
-  .btn-responsive, form .end-buttons .btn { width: 100%; }
+  .btn-responsive, form .end-buttons .btn { width: 100%; margin-bottom: 1em; margin-left: 0 !important; margin-right: 0 !important; }
   .non-export-heading { margin-top: 2em; } }
 
 /*# sourceMappingURL=main.css.map */

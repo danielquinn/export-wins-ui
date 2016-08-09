@@ -216,9 +216,11 @@
     {% include "wins/win-details-element.html" with name="Associated programme 3" val=win.associated_programme_3 required=False %}
   </div>
 
-
-  <a href="{% url 'win-edit' win.id %}" class="btn btn-primary">edit</a>
-  <a href="{% url 'win-complete' win.id %}" class="btn btn-primary">send</a>
+  <div class="section-content">
+    <a href="{% url 'index' %}" class="btn btn-default btn-responsive">cancel</a>
+    <a href="{% url 'win-edit' win.id %}" class="btn btn-info btn-responsive">edit</a>
+    <a href="{% url 'win-complete' win.id %}" class="btn btn-primary btn-responsive">send</a>
+  </div>
 
 </div>
 
