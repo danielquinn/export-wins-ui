@@ -6,6 +6,15 @@
 		margin-right: 0.5em;
 	}
 
+	.section-heading {
+		background-color: $gray-lighter;
+		padding: 1em;
+	}
+
+	.section-content {
+		padding: 1em 1.714em;
+	}
+
 	.company-name,
 	.customer-name {
 
@@ -44,7 +53,8 @@
 
 	.export-value-group {
 
-		display: table;
+		overflow: hidden;
+		padding: 0;
 
 		.first {
 
@@ -75,5 +85,14 @@
 				border-radius: 0 0 5px 0
 			}
 		}
+	}
+
+	.field-name {
+		font-weight: bold;
+		margin-bottom: 0.5em;
+	}
+
+	.field-value {
+		margin-bottom: 1.5em;
 	}
 }
