@@ -74,7 +74,7 @@ class WinForm(BootstrappedForm, metaclass=WinReflectiveFormMetaclass):
     def __init__(self, *args, **kwargs):
 
         self.request = kwargs.pop("request")
-        exclude_non_editable_fields = kwargs.pop('exclude_non_editable', False)
+        self.completed = kwargs.pop('completed', False)
         breakdowns = kwargs.pop('breakdowns', [])
         advisors = kwargs.pop('advisors', [])
 
@@ -98,7 +98,7 @@ class WinForm(BootstrappedForm, metaclass=WinReflectiveFormMetaclass):
         self.fields["total_expected_export_value"].initial = '0'
         self.fields["total_expected_non_export_value"].initial = '0'
 
-        if not exclude_non_editable_fields:
+        if not self.completed:
             self.breakdown_field_data = self._add_breakdown_fields()
             self._add_breakdown_initial(breakdowns)
 
@@ -110,19 +110,21 @@ class WinForm(BootstrappedForm, metaclass=WinReflectiveFormMetaclass):
         # in confirmation form - why?!
         # also, think this should be used somewhere else...
         non_editable_fields = [
-            'business_type',
-            'description',
-            'name_of_customer',
+            "description",
+            "type",
+            "date",
+            "country",
+            "customer_location",
+            "total_expected_export_value",
+            "total_expected_non_export_value",
+            "goods_vs_services",
+            # these are in the same block of fields, but not included in response form
             'name_of_export',
-            'type',
-            'goods_vs_services',
+            'business_type',
+            'name_of_customer',
             'sector',
-            'country',
-            'date',
-            'total_expected_export_value',
-            'total_expected_non_export_value',
         ]
-        if exclude_non_editable_fields:
+        if self.completed:
             for field_name in non_editable_fields:
                 del self.fields[field_name]
 
@@ -191,28 +193,29 @@ class WinForm(BootstrappedForm, metaclass=WinReflectiveFormMetaclass):
             'patch',
         )
 
-        for data in self._get_breakdown_data(win_id):
-            existing_breakdown_id = data['id']
-            ignore_or_delete_breakdown = not bool(data['value'])
-            # if it has an id already, update that breakdown
-            if existing_breakdown_id:
-                # if it does not have a name, but does have an id, delete it
-                if ignore_or_delete_breakdown:
-                    rabbit.push(
-                        settings.BREAKDOWNS_AP + str(existing_breakdown_id) + '/',
-                        data,
-                        self.request,
-                        'delete',
-                    )
-                else:
-                    rabbit.push(
-                        settings.BREAKDOWNS_AP + str(existing_breakdown_id) + '/',
-                        data,
-                        self.request,
-                        'patch',
-                    )
-            elif not ignore_or_delete_breakdown:
-                rabbit.push(settings.BREAKDOWNS_AP, data, self.request)
+        if not self.completed:
+            for data in self._get_breakdown_data(win_id):
+                existing_breakdown_id = data['id']
+                ignore_or_delete_breakdown = not bool(data['value'])
+                # if it has an id already, update that breakdown
+                if existing_breakdown_id:
+                    # if it does not have a name, but does have an id, delete it
+                    if ignore_or_delete_breakdown:
+                        rabbit.push(
+                            settings.BREAKDOWNS_AP + str(existing_breakdown_id) + '/',
+                            data,
+                            self.request,
+                            'delete',
+                        )
+                    else:
+                        rabbit.push(
+                            settings.BREAKDOWNS_AP + str(existing_breakdown_id) + '/',
+                            data,
+                            self.request,
+                            'patch',
+                        )
+                elif not ignore_or_delete_breakdown:
+                    rabbit.push(settings.BREAKDOWNS_AP, data, self.request)
 
         for data in self._get_advisor_data(win_id):
             existing_advisor_id = data['id']

@@ -173,7 +173,7 @@ class EditWinView(BaseWinFormView):
 
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
-        # kwargs['exclude_non_editable'] = True
+        kwargs['completed'] = self.win['complete']
         kwargs['breakdowns'] = get_win_breakdowns(
             self.kwargs['win_id'],
             self.request,
