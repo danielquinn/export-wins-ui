@@ -50,7 +50,7 @@ body {
 }
 
 hr {
-	margin: 3em 1em;
+	margin: 2.5em 1em;
 }
 
 h1 {
@@ -78,28 +78,37 @@ td.error input {
 	background-color: #f2dede;
 }
 
+
 .form-group {
+	
 	margin: 1em 0;
+
+	&.error {
+		border: 1px solid #f2dede;
+		border-radius: 0.5em;
+		padding: 1em;
+	}
+
+	ul {
+
+		width: 20%;
+		float: right;
+
+		li {
+			display: inline;
+
+			label {
+				white-space: nowrap;
+			}
+		}
+	}
 }
 
-.form-group.error {
-	border: 1px solid #f2dede;
-	border-radius: 0.5em;
-	padding: 1em;
+.restrict-width {
+	max-width: 600px;
 }
 
-.form-group ul li label {
-	white-space: nowrap;
-}
 
-.form-group ul {
-	width: 20%;
-	float: right;
-}
-
-.form-group ul li {
-	display: inline;
-}
 
 /* Hide Firefox number field arrows */
 input[type='number'] {
@@ -123,18 +132,23 @@ input::-webkit-inner-spin-button {
 	}
 }
 
-.btn-responsive,
-.end-buttons .btn {
+.btn-responsive {
 
 	min-width: 120px;
 }
 
-.end-buttons .btn {
+.end-buttons {
 
-	margin-right: 1em;
+	margin-top: 3em;
 
-	&:last-child {
-		margin-right: 0;
+	.btn {
+
+		@extend .btn-responsive;
+		margin-right: 1em;
+
+		&:last-child {
+			margin-right: 0;
+		}
 	}
 }
 
@@ -147,6 +161,20 @@ input::-webkit-inner-spin-button {
 	padding: 1em 1.714em;
 }
 
+.separate-section-heading {
+	margin-top: 3em;
+}
+
+.review-win-details-list {
+
+	span {
+		display: block;
+		font-weight: bold;
+		padding-bottom: 0.25em;
+	}
+}
+
+
 @media( max-width:$screen-sm-min ){
 
 	.logo-row .logo {
@@ -154,7 +182,7 @@ input::-webkit-inner-spin-button {
 	}
 
 	.btn-responsive,
-	form .end-buttons .btn {
+	body .end-buttons .btn {
 		width: 100%;
 		margin-bottom: 1em;
 		margin-left: 0 !important;

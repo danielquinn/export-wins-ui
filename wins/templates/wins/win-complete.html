@@ -2,6 +2,7 @@
 
 
 {% load staticfiles %}
+{% load humanize %}
 
 {% block breadcrumb-name %}Review win{% endblock %}
 
@@ -38,16 +39,19 @@
       the customer has been contacted, you will not be able to change these details.
     </p>
       
-    <h3 class="section-heading">{{ win.company_name }}</h3>
+    <h3 class="section-heading separate-section-heading">{{ win.company_name }}</h3>
 
     <div class="section-content">
       
-      Business type: {{ win.business_type }} <br><br>
-      Description: {{ win.description }} <br><br>
-      Export: {{ win.total_expected_export_value }} <br><br>
-      Non-export: {{ win.total_expected_non_export_value }} <br><br>
-      Country: {{ win.country }} <br><br>
-      Date: {{ win.date }} <br><br>
+      <ul class="list-group review-win-details-list">
+        <li class="list-group-item"><span>Business type</span> {{ win.business_type }}</li>
+        <li class="list-group-item"><span>Description</span> {{ win.description }}</li>
+        <li class="list-group-item"><span>Export value</span> &pound;{{ win.total_expected_export_value | intcomma }}</li>
+        <li class="list-group-item"><span>Non-export value</span> &pound;{{ win.total_expected_non_export_value | intcomma }}</li>
+        <li class="list-group-item"><span>Country</span> {{ win.country }}</li>
+        <li class="list-group-item"><span>Date</span> {{ win.date }}</li>
+      </ul>
+
     </div>
 
     <form method="post">
@@ -56,7 +60,7 @@
       <div class="end-buttons">
         <a href="{% url 'index' %}" class="btn btn-default">cancel</a>
         <a href="{% url 'win-edit' win.id %}" class="btn btn-info">Edit win</a>
-        <input type="submit" name="complete" value="Mark complete &amp; Send to customer" class="btn btn-primary">
+        <input type="submit" name="complete" value="Complete &amp; Send to customer" class="btn btn-primary">
       </div>
     </form>
 
