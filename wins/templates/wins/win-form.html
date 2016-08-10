@@ -14,17 +14,18 @@
 {% endblock banner %}
 
 {% block form-footer %}
+
 <p class="well">
-	After you have saved your win, you will be able to continue editing it until you are satisfied that you have got the details correct. You may then send it to the customer for confirmation by...
+	After you have saved your win, you will be able to continue editing it until you are satisfied that you have got the details correct. You may then review the details before sending it to the customer for confirmation.
 </p>
 
 <div class="end-buttons">
-  <a href="{% url 'index' %}" class="btn btn-danger">Cancel</a>
+  <a href="{% url 'index' %}" class="btn btn-default">cancel</a>
 
-  <input type="submit" name="save" value="Save Record" class="btn btn-primary">
+  <input type="submit" name="save" value="Save" class="btn btn-primary">
 
   {% if win %}
-    <input type="submit" name="send" value="Save Record and Send to Customer" class="btn btn-warning">
+    <input type="submit" name="send" value="Save &amp; Send to customer" class="btn btn-primary">
   {% endif %}
 </div>
 {% endblock %}

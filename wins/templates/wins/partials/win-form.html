@@ -103,11 +103,12 @@
 		<hr>
 
 		<h3>Expected value of the win</h3>
+
 		<p>
-			These questions help us to understand the £ value of the customer's win
-			over a five year period. How much of that £ value is UK exports and how
+			These questions help us to understand the &pound; value of the customer's win
+			over a five year period. How much of that &pound; value is UK exports and how
 			much is non-export value. We will use these aggregated values to help
-			demonstrate the contribution to the Government's £1 trillion by 2020
+			demonstrate the contribution to the Government's &pound;1 trillion by 2020
 			export target.
 			<br>
 			<br>
@@ -135,7 +136,9 @@
 
 		<h4>Export value</h4>
 
-		{% include "wins/partials/win-field.html" with field=form.total_expected_export_value help="Enter whole numbers in £ e.g. for one-and-a-half-million, enter 1500000 <br /> The total expected value should be the sum of the annual values of the win." %}
+		<p class="">
+			Enter whole numbers in &pound; e.g. for one-and-a-half-million, enter 1500000
+		</p>
 
 		<table class="table table-responsive">
 			<tr>
@@ -154,9 +157,16 @@
 			</tr>
 		</table>
 
+		{% include "wins/partials/win-field.html" with field=form.total_expected_export_value help="The total expected value should be the sum of the annual values of the win." %}
+
+
+		<hr>
+
 		<h4>Non-export value</h4>
 
-		{% include "wins/partials/win-field.html" with field=form.total_expected_non_export_value help="Enter whole numbers in £ e.g. for one-and-a-half-million, enter 1500000 <br /> The total expected value should be the sum of the annual values of the win." %}
+		<p>
+			Enter whole numbers in &pound; e.g. for one-and-a-half-million, enter 1500000
+		</p>
 
 		<table class="table table-responsive">
 			<tr>
@@ -174,14 +184,18 @@
 				<td {% if form.breakdown_non_exports_4.errors %} class="error"{% endif %}>{{ form.breakdown_non_exports_4 }}</td>
 			</tr>
 		</table>
+
+		{% include "wins/partials/win-field.html" with field=form.total_expected_non_export_value help="The total expected value should be the sum of the annual values of the win." %}
 {% endif %}
 
 		<hr>
 
-		<h3>Support provided
-	   <p>How did we help the customer achieve this win?</p>
-		</h3>
+		<h3>Support provided</h3>
 
+		<p>
+			How did we help the customer achieve this win?
+		</p>
+	   	
 
 		{% include "wins/partials/win-field.html" with field=form.hvo_programme %}
 		{% include "wins/partials/win-field.html" with field=form.has_hvo_specialist_involvement %}

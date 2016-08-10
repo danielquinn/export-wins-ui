@@ -3,57 +3,61 @@
 
 {% load staticfiles %}
 
+{% block breadcrumb-name %}Review win{% endblock %}
 
-{% block css %}
-
-  {{ block.super }}
-
-  <style>
-
-    .btn {
-      margin-right: 1em;
-    }
-
-  </style>
-
-{% endblock css %}
+{% block header %}Review win{% endblock %}
 
 
 {% block content %}
 
   {% if win.complete %}
-    This win has already been marked complete and sent to the customer.
 
-    <br><br>
+    <p class="alert alert-info">
+      This win is already marked as complete and has been sent to the customer for review.
+    </p>
 
-    <a href="{% url 'index' %}" class="btn btn-primary">My Wins</a>
+    <div class="text-center">
+      <a href="{% url 'index' %}" class="btn btn-primary btn-lg">My Wins</a>
+    </div>
+
   {% else %}
-    Please review this information about your win, if you are confident your
-    customer will agree you can mark this win complete, and a form will be
-    sent to the customer for their confirmation of these details.
 
-    If you are unsure you may wish to contact the customer.
+    <p class="lead">
+      
+      Please review the details of your win below. If you are confident your
+      customer will agree, you can mark this win as complete, and a form will be
+      sent to the customer for them to confirm the details.
+    </p>
 
-    You can edit these details now, but once the win is marked as complete and
-    the customer has been contacted, you will not be able to change these details
+    <p>
+      If you are unsure you may wish to contact the customer.
+    </p>
 
-    <br><br>
+    <p>
+      You can edit these details now, but once the win is marked as complete and
+      the customer has been contacted, you will not be able to change these details.
+    </p>
+      
+    <h3 class="section-heading">{{ win.company_name }}</h3>
 
-    Business type: {{ win.business_type }} <br><br>
-    Description: {{ win.description }} <br><br>
-    Export: {{ win.total_expected_export_value }} <br><br>
-    Non-export: {{ win.total_expected_non_export_value }} <br><br>
-    Country: {{ win.country }} <br><br>
-    Date: {{ win.date }} <br><br>
-
-
-    <br><br>
+    <div class="section-content">
+      
+      Business type: {{ win.business_type }} <br><br>
+      Description: {{ win.description }} <br><br>
+      Export: {{ win.total_expected_export_value }} <br><br>
+      Non-export: {{ win.total_expected_non_export_value }} <br><br>
+      Country: {{ win.country }} <br><br>
+      Date: {{ win.date }} <br><br>
+    </div>
 
     <form method="post">
       {% csrf_token %}
-      <a href="{% url 'index' %}" class="btn btn-danger">Cancel</a>
-      <a href="{% url 'win-edit' win.id %}" class="btn btn-primary">Edit Win</a>
-      <input type="submit" name="complete" value="Complete Win &amp; Send to Customer" class="btn btn-warning">
+
+      <div class="end-buttons">
+        <a href="{% url 'index' %}" class="btn btn-default">cancel</a>
+        <a href="{% url 'win-edit' win.id %}" class="btn btn-info">Edit win</a>
+        <input type="submit" name="complete" value="Mark complete &amp; Send to customer" class="btn btn-primary">
+      </div>
     </form>
 
   {% endif %}

@@ -54,10 +54,6 @@
 
 .win-details .glyphicon { margin-right: 0.5em; }
 
-.win-details .section-heading { background-color: #eeeeee; padding: 1em; }
-
-.win-details .section-content { padding: 1em 1.714em; }
-
 .win-details .company-name, .win-details .customer-name { font-size: 24px; }
 
 .win-details .officer-email { display: block; }
@@ -116,13 +112,13 @@ body { border-top: 5px solid #c81e53; padding-top: 2.5em; }
 
 .site-heading p { color: #777777; }
 
-.page-heading { margin-bottom: 1em; }
+.page-heading { margin-bottom: 0.5em; }
+
+.breadcrumb { margin-bottom: 3em; }
 
 hr { margin: 3em 1em; }
 
 h1 { margin-bottom: 1em; }
-
-form .end-buttons { text-align: right; }
 
 form input { padding-left: 2em; padding-right: 2em; }
 
@@ -152,6 +148,14 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button { -webkit-app
 .footer img { height: 100px; }
 
 .btn-responsive, .end-buttons .btn { min-width: 120px; }
+
+.end-buttons .btn { margin-right: 1em; }
+
+.end-buttons .btn:last-child { margin-right: 0; }
+
+.section-heading { background-color: #eeeeee; padding: 1em; }
+
+.section-content { padding: 1em 1.714em; }
 
 @media (max-width: 768px) { .logo-row .logo { height: 70px; }
   .btn-responsive, form .end-buttons .btn { width: 100%; margin-bottom: 1em; margin-left: 0 !important; margin-right: 0 !important; }

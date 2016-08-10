@@ -4,7 +4,7 @@
 
 {% block title %} - Edit win{% endblock title %}
 
-{% block breadcrumb-name %}Edit win{% endblock %}
+{% block breadcrumb-name %}Edit win {{win.complete }}{% endblock %}
 {% block header %}Edit win{% endblock header %}
 
 {% block banner %}
@@ -21,13 +21,13 @@
 
 	<div class="end-buttons">
 
-		<a href="{% url 'index' %}" class="btn btn-danger">Cancel</a>
+		<a href="{% url 'index' %}" class="btn btn-default">cancel</a>
 
 
 		<input type="submit" name="save" value="Save" class="btn btn-primary">
 
 		{% if win %}
-			<input type="submit" name="send" value="Save and send to customer" class="btn btn-warning">
+			<input type="submit" name="send" value="Save &amp; Review" class="btn btn-primary">
 		{% endif %}
 	</div>
 

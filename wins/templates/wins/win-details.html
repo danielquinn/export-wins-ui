@@ -218,9 +218,9 @@
 
   <div class="section-content">
     <a href="{% url 'index' %}" class="btn btn-default btn-responsive">cancel</a>
-    <a href="{% url 'win-edit' win.id %}" class="btn btn-info btn-responsive">edit</a>
+    <a href="{% url 'win-edit' win.id %}" class="btn btn-info btn-responsive">Edit</a>
     {% if not win.complete %}
-    <a href="{% url 'win-complete' win.id %}" class="btn btn-primary btn-responsive">send</a>
+    <a href="{% url 'win-complete' win.id %}" class="btn btn-primary btn-responsive">Review</a>
     {% endif %}
   </div>
 
