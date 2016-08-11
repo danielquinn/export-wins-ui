@@ -1,15 +1,11 @@
-{% extends "wins/success.html" %}
+{% extends "wins/partials/success.html" %}
 
-{% block success %}
+{% block header %}
   Export Win completed
 {% endblock %}
 
-{% block message %}
-  <p>
-      Thank you for completing this Export Win.
+{% block breadcrumb-name %}Win completed{% endblock %}
 
-      Details of the win have been forwarded to the customer for confirmation.
-
-      You can edit some details but not others. click <a href="{% url 'win-edit' win_id %}" class="btn btn-primary">here</a> to edit more
-  </p>
+{% block lead-message %}
+      Details of the win have been forwarded to the customer for confirmation, you can still <a href="{% url 'win-edit' win_id %}">edit some details</a> if required.
 {% endblock %}

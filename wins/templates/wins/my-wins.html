@@ -27,7 +27,7 @@
 
             <a href="{% url 'new-win' %}" class="btn btn-primary btn-responsive">Record new win</a>
 
-            <h3>Unsent wins <span class="badge">{{ unsent | length }}</span></h3>
+            <h3 class="my-wins-header">Unsent wins <span class="badge">{{ unsent | length }}</span></h3>
 
              {% if not unsent %}
 
@@ -49,7 +49,7 @@
                             <td><a href="{% url 'win-details' win.id %}">{{ win.company_name }}</a></td>
                             <td>{{ win.country_name }}</td>
                             <td>{{ win.customer_name }}</td>
-                            <td>{{ win.total_expected_export_value | intcomma }}</td>
+                            <td class="text-right">{{ win.total_expected_export_value | intcomma }}</td>
                             <td>{{ win.date }}</td>
                             <td>{% if win.updated %}{{ win.updated }}{% else %}{{ win.created }}{% endif %}</td>
                         </tr>
@@ -59,7 +59,7 @@
             {% endif %}
 
 
-            <h3>Sent to customer <span class="badge">{{ sent | length }}</span></h3>
+            <h3 class="my-wins-header">Sent to customer <span class="badge">{{ sent | length }}</span></h3>
 
              {% if not sent %}
 
@@ -82,7 +82,7 @@
                            <td><a href="{% url 'win-details' win.id %}">{{ win.company_name }}</a></td>
                            <td>{{ win.country_name }}</td>
                            <td>{{ win.customer_name }}</td>
-                           <td>{{ win.total_expected_export_value | intcomma }}</td>
+                           <td class="text-right">{{ win.total_expected_export_value | intcomma }}</td>
                            <td>{{ win.date }}</td>
                            <td>{{ win.sent.0|timesince }}{# should this be first or last time it was sent? #}</td>
                         </tr>
@@ -92,7 +92,7 @@
             {% endif %}
 
 
-            <h3>Customer responded <span class="badge">{{ responded | length }}</span></h3>
+            <h3 class="my-wins-header">Customer responded <span class="badge">{{ responded | length }}</span></h3>
 
             {% if not responded %}
 
@@ -113,8 +113,8 @@
                         <tr>
                             <td><a href="{% url 'win-details' win.id %}">{{ win.company_name }}</a></td>
                             <td>{{ win.country_name }}</td>
-                            <td>{{ win.responded.our_help }}</td>
-                            <td>{{ win.total_expected_export_value | intcomma }}</td>
+                            <td class="text-right">{{ win.responded.our_help }}</td>
+                            <td class="text-right">{{ win.total_expected_export_value | intcomma }}</td>
                             <td>{{ win.date }}</td>
                             <td>{{ win.responded.created }}</td>
                         </tr>
@@ -122,6 +122,8 @@
                 </table>
 
             {% endif %}
+
+            <a href="{% url 'new-win' %}" class="btn btn-primary btn-responsive new-win-bottom-btn">Record new win</a>
 
         {% endif %}
 

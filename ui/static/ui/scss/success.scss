@@ -1,0 +1,38 @@
+@import "bootstrap/variables";
+
+.success-buttons {
+
+	.btn {
+		margin-left: 1em;
+	}
+
+	.btn:first-of-type {
+		margin-left: 0;
+	}
+}
+
+.success-page-alert {
+	font-size: 1.2em;
+}
+
+.success-feedback-message {
+	color: $gray-light;
+	margin-top: 2em;
+}
+
+.success-page-lead {
+	margin: 1.5em 0 3em 0;
+}
+
+.success-actions {
+
+	margin-bottom: 4em;
+
+	.btn {
+		margin-right: 1em;
+	}
+
+	.btn:last-of-type {
+		margin-right: 0;
+	}
+}

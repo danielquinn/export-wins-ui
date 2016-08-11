@@ -1,19 +1,21 @@
-{% extends "wins/success.html" %}
+{% extends "wins/partials/success.html" %}
 
-{% block success %}
+{% block header %}
   Export Win saved
 {% endblock %}
 
-{% block message %}
-  <p>
-      Thank you for editing this Export Win, your changes have been saved.
+{% block breadcrumb-name %}Win saved{% endblock %}
 
-      to see win details click <a href="{% url 'win-details' win_id %}" class="btn btn-primary">here</a>
+{% block lead-message %}
+      The win is not complete until you have sent it to the customer for review.
+{% endblock %}
 
-      to continue editing click <a href="{% url 'win-edit' win_id %}" class="btn btn-primary">here</a>
+{% block success-content %}
 
-      The win is not complete until you have marked as complete for confirmation by the customer. you can click <a href="{% url 'win-complete' win_id %}" class="btn btn-primary">here</a>
+	<div class="text-center success-actions">
+    	<a href="{% url 'win-details' win_id %}" class="btn btn-primary btn-lg btn-responsive">View details</a>
+		<a href="{% url 'win-complete' win_id %}" class="btn btn-primary btn-lg btn-responsive">Review win</a>
+		<a href="{% url 'win-edit' win_id %}" class="btn btn-primary btn-lg btn-responsive">Edit win</a>
+	</div>
 
-
-  </p>
 {% endblock %}
