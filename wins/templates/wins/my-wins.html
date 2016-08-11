@@ -18,14 +18,14 @@
 
             <div class="text-center">
 
-                <p class="lead">You haven&#39;t yet recorded any wins yet.</p>
+                <p class="lead">You haven&#39;t yet created any wins yet.</p>
 
-                <a href="{% url 'new-win' %}" class="btn btn-primary btn-responsive btn-lg">Record new win</a>
+                <a href="{% url 'new-win' %}" class="btn btn-primary btn-responsive btn-lg">Create new win</a>
             </div>
 
         {% else %}
 
-            <a href="{% url 'new-win' %}" class="btn btn-primary btn-responsive">Record new win</a>
+            <a href="{% url 'new-win' %}" class="btn btn-primary btn-responsive">Create new win</a>
 
             <h3 class="my-wins-header">Unsent wins <span class="badge">{{ unsent | length }}</span></h3>
 
@@ -39,7 +39,7 @@
                     <tr>
                         <th>UK Company</th>
                         <th>Export to</th>
-                        <th>Contact</th>
+                        <th>Overseas Contact</th>
                         <th>Export amount (&pound;)</th>
                         <th>Date won</th>
                         <th>Last modified</th>
@@ -72,7 +72,7 @@
                     <tr>
                         <th>UK Company</th>
                         <th>Export to</th>
-                        <th>Contact</th>
+                        <th>Overseas Contact</th>
                         <th>Export amount (&pound;)</th>
                         <th>Date won</th>
                         <th>Days since sent</th>
@@ -123,7 +123,7 @@
 
             {% endif %}
 
-            <a href="{% url 'new-win' %}" class="btn btn-primary btn-responsive new-win-bottom-btn">Record new win</a>
+            <a href="{% url 'new-win' %}" class="btn btn-primary btn-responsive new-win-bottom-btn">Create new win</a>
 
         {% endif %}
 

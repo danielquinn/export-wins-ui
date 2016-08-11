@@ -12,6 +12,8 @@
 
 .win-form .help-text { margin-top: 0; color: #666666; padding: 0 0.5em 0.5em 0; }
 
+.win-form .win-form-well { margin-top: 3em; }
+
 .confirmation-form { max-width: 650px; }
 
 .confirmation-form .more-info { font-size: 1.1em; position: relative; top: -2px; }
@@ -90,8 +92,6 @@
 
 .success-buttons .btn:first-of-type { margin-left: 0; }
 
-.success-page-alert { font-size: 1.2em; }
-
 .success-feedback-message { color: #777777; margin-top: 2em; }
 
 .success-page-lead { margin: 1.5em 0 3em 0; }
@@ -101,6 +101,8 @@
 .success-actions .btn { margin-right: 1em; }
 
 .success-actions .btn:last-of-type { margin-right: 0; }
+
+.win-success .btn-lg { margin: 0.5em 0 2em 0; }
 
 body { border-top: 5px solid #c81e53; padding-top: 2.5em; }
 
@@ -130,8 +132,6 @@ h1 { margin-bottom: 1em; }
 
 form input { padding-left: 2em; padding-right: 2em; }
 
-.form-group .alert { padding: 0.5em; }
-
 table tr th { text-align: center; }
 
 td.error input { background-color: #f2dede; }
@@ -139,6 +139,8 @@ td.error input { background-color: #f2dede; }
 .form-group { margin: 1em 0; }
 
 .form-group.error { border: 1px solid #f2dede; border-radius: 0.5em; padding: 1em; }
+
+.form-group .alert { padding: 0.5em; }
 
 .form-group ul { width: 20%; float: right; }
 
@@ -175,7 +177,7 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button { -webkit-app
 
 .section-content { padding: 1em 1.714em; }
 
-.separate-section-heading { margin-top: 3em; }
+.win-complete-buttons, .separate-section-heading { margin-top: 3em; }
 
 .review-win-details-list span { display: block; font-weight: bold; padding-bottom: 0.25em; }
 

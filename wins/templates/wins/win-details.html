@@ -217,11 +217,11 @@
   </div>
 
   <div class="section-content end-buttons">
-    <a href="{% url 'index' %}" class="btn btn-default">cancel</a>
-    <a href="{% url 'win-edit' win.id %}" class="btn btn-info">Edit</a>
     {% if not win.complete %}
     <a href="{% url 'win-complete' win.id %}" class="btn btn-primary">Review</a>
     {% endif %}
+    <a href="{% url 'win-edit' win.id %}" class="btn btn-info">Edit</a>
+    <a href="{% url 'index' %}" class="btn btn-default">Cancel</a>
   </div>
 
 </div>

@@ -14,11 +14,12 @@
   {% if win.complete %}
 
     <p class="alert alert-info">
-      This win is already marked as complete and has been sent to the customer for review.
+      This win has already been sent to the customer for review.
     </p>
 
-    <div class="text-center">
-      <a href="{% url 'index' %}" class="btn btn-primary btn-lg">My Wins</a>
+    <div class="text-center success-buttons win-complete-buttons">
+      <a href="{% url 'index' %}" class="btn btn-default btn-responsive">My Wins</a>
+      <a href="{% url 'new-win' %}" class="btn btn-default btn-responsive">Record a New Export Win</a>
     </div>
 
   {% else %}
@@ -26,18 +27,19 @@
     <p class="lead">
       
       Please review the details of your win below. If you are confident your
-      customer will agree, you can mark this win as complete, and a form will be
-      sent to the customer for them to confirm the details.
+      customer will agree, send the form to them to confirm the details.
     </p>
 
     <p>
       If you are unsure you may wish to contact the customer.
     </p>
 
-    <p>
-      You can edit these details now, but once the win is marked as complete and
-      the customer has been contacted, you will not be able to change these details.
+    <h3 class="section-heading">Customer details</h3>
+    <p class="section-content">
+      <strong>Name:</strong> {{ win.customer_name }}<br>
+      <strong>Email:</strong> {{ win.customer_email_address }}
     </p>
+      
       
     <h3 class="section-heading separate-section-heading">{{ win.company_name }}</h3>
 
@@ -45,7 +47,7 @@
       
       <ul class="list-group review-win-details-list">
         <li class="list-group-item"><span>Business type</span> {{ win.business_type }}</li>
-        <li class="list-group-item"><span>Description</span> {{ win.description }}</li>
+        <li class="list-group-item"><span>How the company was supported in achieving the win</span> {{ win.description }}</li>
         <li class="list-group-item"><span>Export value</span> &pound;{{ win.total_expected_export_value | intcomma }}</li>
         <li class="list-group-item"><span>Non-export value</span> &pound;{{ win.total_expected_non_export_value | intcomma }}</li>
         <li class="list-group-item"><span>Country</span> {{ win.country }}</li>
@@ -54,13 +56,16 @@
 
     </div>
 
+    <p class="well">
+      You can <a href="{% url 'win-edit' win.id %}">edit these details</a> now, but once it has been sent to the customer, you will not be able to change these details.
+    </p>
+
     <form method="post">
       {% csrf_token %}
 
       <div class="end-buttons">
-        <a href="{% url 'index' %}" class="btn btn-default">cancel</a>
-        <a href="{% url 'win-edit' win.id %}" class="btn btn-info">Edit win</a>
-        <input type="submit" name="complete" value="Complete &amp; Send to customer" class="btn btn-primary">
+        <input type="submit" name="complete" value="Send to customer" class="btn btn-primary">
+        <a href="{% url 'index' %}" class="btn btn-default">Cancel</a>
       </div>
     </form>
 

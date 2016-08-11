@@ -6,16 +6,63 @@
 
 {% block breadcrumb-name %}Win saved{% endblock %}
 
-{% block lead-message %}
-      The win is not complete until you have sent it to the customer for review.
-{% endblock %}
+{% comment %}
+This win is now listed in "My Wins" as an unsent win.
 
-{% block success-content %}
+<button = view my wins >
+<button = Create new win >
+
+To send the win to the customer, review the details they see first (you can edit it again before sending).
+
+<button = Review win> 
+
+If you need to amend any details of the win you can edit it at any time. After you have sent the win to the customer you will not be able to edit the customer details.
+
+<button = Edit win>
+
 
 	<div class="text-center success-actions">
     	<a href="{% url 'win-details' win_id %}" class="btn btn-primary btn-lg btn-responsive">View details</a>
 		<a href="{% url 'win-complete' win_id %}" class="btn btn-primary btn-lg btn-responsive">Review win</a>
 		<a href="{% url 'win-edit' win_id %}" class="btn btn-primary btn-lg btn-responsive">Edit win</a>
+	</div>
+{% endcomment %}
+
+{% block lead-message %}
+
+	{# check this works #}
+	{% if win.complete %}
+
+		The win isn't complete until you have sent it to the customer for review.
+
+	{% else %}
+
+      This win is now listed in "My Wins" as an unsent win and isn't complete until you have sent it to the customer for review.
+
+	{% endif %}
+
+{% endblock %}
+
+{% block success-content %}
+{% comment %}
+	<p>
+		This win is now listed in "My Wins" as an unsent win.
+	</p>
+
+	<a href="{% url 'index' %}" class="btn btn-primary btn-responsive">My wins</a>
+	<a href="{% url 'new-win' %}" class="btn btn-default btn-responsive">Create new win</a>
+{% endcomment %}
+
+	<div class="win-success">
+		<p>
+			To send the win to the customer, review the details they see first (you can edit it again before sending).
+		</p>
+
+		<a href="{% url 'win-complete' win_id %}" class="btn btn-primary btn-responsive btn-lg">Review win</a>
+
+		<p>
+			If you need to amend any details of the win you can <a href="{% url 'win-edit' win_id %}">edit it</a> at any time. After you have sent the win to the customer you will not be able to edit the customer details.
+		</p>
 	</div>
 
 {% endblock %}

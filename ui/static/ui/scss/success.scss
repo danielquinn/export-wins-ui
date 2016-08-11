@@ -11,10 +11,6 @@
 	}
 }
 
-.success-page-alert {
-	font-size: 1.2em;
-}
-
 .success-feedback-message {
 	color: $gray-light;
 	margin-top: 2em;
@@ -34,5 +30,11 @@
 
 	.btn:last-of-type {
 		margin-right: 0;
+	}
+}
+
+.win-success {
+	.btn-lg {
+		margin: 0.5em 0 2em 0;
 	}
 }

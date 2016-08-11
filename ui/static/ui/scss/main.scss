@@ -84,10 +84,6 @@ form {
 	}
 }
 
-.form-group .alert {
-	padding: 0.5em;
-}
-
 table tr th {
 	text-align: center;
 }
@@ -105,6 +101,10 @@ td.error input {
 		border: 1px solid #f2dede;
 		border-radius: 0.5em;
 		padding: 1em;
+	}
+
+	.alert {
+		padding: 0.5em;
 	}
 
 	ul {
@@ -193,6 +193,7 @@ input::-webkit-inner-spin-button {
 	padding: 1em 1.714em;
 }
 
+.win-complete-buttons,
 .separate-section-heading {
 	margin-top: 3em;
 }
