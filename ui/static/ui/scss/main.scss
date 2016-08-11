@@ -35,10 +35,11 @@ body {
 	border-radius: 2px;
 	color: $gray-light;
 	margin: 0 0 3em 0;
+	overflow: hidden;
 
 	li {
 		padding: 0;
-		display: inline-block;
+		float: left;
 		margin: 0;
 
 		.separator {
