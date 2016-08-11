@@ -28,7 +28,7 @@
           </p>
         </div>
       </div>
-      
+
     </div>
     <div class="col-sm-6">
       <div class="panel panel-default">
@@ -38,7 +38,7 @@
         <div class="panel-body">
           <p>
             <span class="sr-only">Name:</span><span class="customer-name">{{ win.lead_officer_name }}</span>
-           
+
             {% if win.lead_officer_email_address %}
             <span class="officer-email">
               <span class="glyphicon glyphicon-envelope"></span><span class="sr-only">Email:</span>{{ win.lead_officer_email_address }}
@@ -94,7 +94,7 @@
   </div>
 
   <h3 class="section-heading">Details of Export Win</h3>
-  
+
   <div class="section-content">
 
     <div class="row">
@@ -124,7 +124,7 @@
 
     <div class="row">
       <div class="col-sm-6">
-        
+
         <h4>Export value</h4>
 
         <p>
@@ -170,24 +170,24 @@
 
         <ol class="export-value-group">
           <li class="export-value-item first">
-            <span class="export-year">{{ win.breakdowns.non_exports.0.year | default:"&nbsp;" }}</span>
-            <span class="export-year-value">&pound;{{ win.breakdowns.non_exports.0.value | intcomma | default:0 }}</span>
+            <span class="export-year">{{ win.breakdowns.nonexports.0.year | default:"&nbsp;" }}</span>
+            <span class="export-year-value">&pound;{{ win.breakdowns.nonexports.0.value | intcomma | default:0 }}</span>
           </li>
           <li class="export-value-item">
-            <span class="export-year">{{ win.breakdowns.non_exports.1.year | default:"&nbsp;" }}</span>
-            <span class="export-year-value">&pound;{{ win.breakdowns.non_exports.1.value | intcomma | default:0 }}</span>
+            <span class="export-year">{{ win.breakdowns.nonexports.1.year | default:"&nbsp;" }}</span>
+            <span class="export-year-value">&pound;{{ win.breakdowns.nonexports.1.value | intcomma | default:0 }}</span>
           </li>
           <li class="export-value-item">
-            <span class="export-year">{{ win.breakdowns.non_exports.2.year | default:"&nbsp;" }}</span>
-            <span class="export-year-value">&pound;{{ win.breakdowns.non_exports.2.value | intcomma | default:0 }}</span>
+            <span class="export-year">{{ win.breakdowns.nonexports.2.year | default:"&nbsp;" }}</span>
+            <span class="export-year-value">&pound;{{ win.breakdowns.nonexports.2.value | intcomma | default:0 }}</span>
           </li>
           <li class="export-value-item">
-            <span class="export-year">{{ win.breakdowns.non_exports.3.year | default:"&nbsp;" }}</span>
-            <span class="export-year-value">&pound;{{ win.breakdowns.non_exports.3.value | intcomma | default:0 }}</span>
+            <span class="export-year">{{ win.breakdowns.nonexports.3.year | default:"&nbsp;" }}</span>
+            <span class="export-year-value">&pound;{{ win.breakdowns.nonexports.3.value | intcomma | default:0 }}</span>
           </li>
           <li class="export-value-item">
-            <span class="export-year">{{ win.breakdowns.non_exports.4.year | default:"&nbsp;" }}</span>
-            <span class="export-year-value">&pound;{{ win.breakdowns.non_exports.4.value | intcomma | default:0 }}</span>
+            <span class="export-year">{{ win.breakdowns.nonexports.4.year | default:"&nbsp;" }}</span>
+            <span class="export-year-value">&pound;{{ win.breakdowns.nonexports.4.value | intcomma | default:0 }}</span>
           </li>
           <li class="export-value-item last">
             <span class="export-year">Total</span>
