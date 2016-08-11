@@ -114,7 +114,7 @@ body { border-top: 5px solid #c81e53; padding-top: 2.5em; }
 
 .win-breadcrumb li { padding: 0; float: left; margin: 0; }
 
-.win-breadcrumb li .separator { color: #777777; padding: 0 0.4em 0 0.8em; }
+.win-breadcrumb li .separator { color: #aaaaaa; padding: 0 0.6em 0 0.6em; }
 
 .site-heading { margin-bottom: 1em; padding-bottom: 0; }
 
@@ -123,8 +123,6 @@ body { border-top: 5px solid #c81e53; padding-top: 2.5em; }
 .site-heading p { color: #777777; }
 
 .page-heading { margin-bottom: 0.5em; }
-
-.breadcrumb { margin-bottom: 3em; }
 
 hr { margin: 2.5em 1em; }
 
@@ -148,7 +146,13 @@ td.error input { background-color: #f2dede; }
 
 .form-group ul li label { white-space: nowrap; }
 
-.restrict-width { max-width: 600px; }
+.alert, .restrict-width { max-width: 600px; }
+
+.restrict-width-xsm { max-width: 200px; }
+
+.restrict-width-sm { max-width: 400px; }
+
+.restrict-width-lg { max-width: 800px; }
 
 /* Hide Firefox number field arrows */
 input[type='number'] { -moz-appearance: textfield; }
@@ -159,7 +163,7 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button { -webkit-app
 
 .footer img { height: 100px; }
 
-.btn-responsive, .end-buttons .btn { min-width: 120px; }
+.btn-responsive, .end-buttons .btn { width: auto; min-width: 120px; }
 
 .end-buttons { margin-top: 3em; }
 

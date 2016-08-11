@@ -43,8 +43,8 @@ body {
 		margin: 0;
 
 		.separator {
-			color: $gray-light;
-			padding: 0 0.4em 0 0.8em;
+			color: lighten( $gray-light, 20% );
+			padding: 0 0.6em 0 0.6em;
 		}
 	}
 }
@@ -65,10 +65,6 @@ body {
 
 .page-heading {
 	margin-bottom: 0.5em;
-}
-
-.breadcrumb {
-	margin-bottom: 3em;
 }
 
 hr {
@@ -126,8 +122,21 @@ td.error input {
 	}
 }
 
+.alert,
 .restrict-width {
 	max-width: 600px;
+}
+
+.restrict-width-xsm {
+	max-width: 200px;
+}
+
+.restrict-width-sm {
+	max-width: 400px;
+}
+
+.restrict-width-lg {
+	max-width: 800px;
 }
 
 
@@ -156,6 +165,7 @@ input::-webkit-inner-spin-button {
 
 .btn-responsive {
 
+	width: auto;
 	min-width: 120px;
 }
 

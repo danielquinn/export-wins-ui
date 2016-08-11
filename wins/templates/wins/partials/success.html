@@ -1,16 +1,15 @@
 {% extends 'ui/base.html' %}
 
-
 {% load staticfiles %}
 
 {% block content %}
-
+{% comment %}
   <div class="alert alert-success success-page-alert">
     <p>
       {% block alert-message %}{% endblock %}
     </p>
   </div>
-
+{% endcomment %}
   <p class="lead success-page-lead">
     {% block lead-message %}{% endblock %}
   </p>

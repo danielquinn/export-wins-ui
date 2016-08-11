@@ -6,10 +6,6 @@
 
 {% block breadcrumb-name %}Win created{% endblock %}
 
-{% block alert-message %}
-      Thank you for creating a new Export Win.
-{% endblock %}
-
 {% block lead-message %}
       The win is not complete until you have sent it to the customer for review.
 {% endblock %}
@@ -18,7 +14,6 @@
 
 	<div class="text-center success-actions">
 		<a href="{% url 'win-complete' win_id %}" class="btn btn-primary btn-lg btn-responsive">Review &amp; Send to customer</a>
-		<a href="{% url 'win-edit' win_id %}" class="btn btn-primary btn-lg btn-responsive">Edit win</a>
 	</div>
 
 {% endblock %}

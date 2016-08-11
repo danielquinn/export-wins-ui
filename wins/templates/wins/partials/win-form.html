@@ -19,12 +19,16 @@
     {% csrf_token %}
 
 		<h3>Lead officer's details</h3>
-		<div class="restrict-width">
+		<div class="restrict-width-sm">
 		{% include "wins/partials/win-field.html" with field=form.lead_officer_name %}
 		{% include "wins/partials/win-field.html" with field=form.lead_officer_email_address help="You only need to provide this if you are completing this form on behalf of the lead officer" %}
 		{% include "wins/partials/win-field.html" with field=form.other_official_email_address help="You can provide an alternate email if someone else in your team needs to be notified about this Export Win" %}
 		{% include "wins/partials/win-field.html" with field=form.team_type %}
+		</div>
+		<div class="restrict-width">
 		{% include "wins/partials/win-field.html" with field=form.hq_team %}
+		</div>
+		<div class="restrict-width-sm">
 		{% include "wins/partials/win-field.html" with field=form.location %}
 		{% include "wins/partials/win-field.html" with field=form.line_manager_name %}
 		</div>
@@ -76,7 +80,7 @@
 
 		<h3>Customer's details</h3>
 		
-		<div class="restrict-width">
+		<div class="restrict-width-sm">
 		{% include "wins/partials/win-field.html" with field=form.company_name %}
 		{% include "wins/partials/win-field.html" with field=form.cdms_reference %}
 		{% include "wins/partials/win-field.html" with field=form.customer_name %}
@@ -95,43 +99,33 @@
 		<div class="restrict-width">
 		{% include "wins/partials/win-field.html" with field=form.business_type help="e.g. export sales, contract, order, distributor, tender /competition win, joint venture, outward investment, etc." %}
 		{% include "wins/partials/win-field.html" with field=form.description help="Please provide details of any key products services provided, missions, initiatives, etc." %}
-		{% include "wins/partials/win-field.html" with field=form.name_of_customer %}
+		{% include "wins/partials/win-field.html" with field=form.name_of_customer class="restrict-width-sm" %}
 		{% include "wins/partials/win-field.html" with field=form.name_of_export %}
-		{% include "wins/partials/win-field.html" with field=form.date help="Enter month and year in the format MM/YYYY." %}
-		{% include "wins/partials/win-field.html" with field=form.country %}
+		{% include "wins/partials/win-field.html" with field=form.date help="Enter month and year in the format MM/YYYY." class="restrict-width-sm" %}
+		{% include "wins/partials/win-field.html" with field=form.country class="restrict-width-sm" %}
 		</div>
 
 		<h3>Expected value of the win</h3>
 
 		<div class="restrict-width">
-		<p>
-			These questions help us to understand the &pound; value of the customer's win
-			over a five year period. How much of that &pound; value is UK exports and how
-			much is non-export value. We will use these aggregated values to help
-			demonstrate the contribution to the Government's &pound;1 trillion by 2020
-			export target.
-			<br>
-			<br>
-			Please see guidance and FAQs.
-		</p>
+			<p>
+				These questions help us to understand the &pound; value of the customer's win
+				over a five year period. How much of that &pound; value is UK exports and how
+				much is non-export value. We will use these aggregated values to help
+				demonstrate the contribution to the Government's &pound;1 trillion by 2020
+				export target.
+				<br>
+				<br>
+				Please see guidance and FAQs.
+			</p>
 
-		<div class="form-group {{ form.type.errors|yesno:'error,' }}">
-			{{ form.type.errors }}
-			<h4>
-				{% if form.type.field.required %}<span class="required">*</span>{% endif %}
-				Type of win
-			</h4>
-			{% if help %}<div class="help-text">{{ help }}</div>{% endif %}
-			{% if tooltip %}
-				<span class="glyphicon glyphicon-info-sign" data-toggle="tooltip" data-original-title="{{ tooltip }}"></span>
-			{% endif %}
-			{{ form.type }}
-			<div class="clearfix"></div>
+			{% include "wins/partials/win-field.html" with field=form.type class="restrict-width-sm" %}
+			{% include "wins/partials/win-field.html" with field=form.goods_vs_services class="restrict-width-sm" %}
 		</div>
 
-		{% include "wins/partials/win-field.html" with field=form.goods_vs_services %}
+		<div class="restrict-width-lg">
+			{% include "wins/partials/win-field.html" with field=form.sector %}
 		</div>
-		{% include "wins/partials/win-field.html" with field=form.sector %}
 
 		<hr>
 
@@ -159,7 +153,7 @@
 		</table>
 
 		<div class="restrict-width">
-		{% include "wins/partials/win-field.html" with field=form.total_expected_export_value help="The total expected value should be the sum of the annual values of the win." %}
+		{% include "wins/partials/win-field.html" with field=form.total_expected_export_value help="The total expected value should be the sum of the annual values of the win." class="restrict-width-sm" %}
 		</div>
 
 		<hr>
@@ -169,7 +163,7 @@
 		<p>
 			Enter whole numbers in &pound; e.g. for one-and-a-half-million, enter 1500000
 		</p>
-
+		
 		<table class="table table-responsive">
 			<tr>
 				<th>{{ form.breakdown_non_exports_0.label_tag }}</th>
@@ -188,7 +182,7 @@
 		</table>
 
 		<div class="restrict-width">
-		{% include "wins/partials/win-field.html" with field=form.total_expected_non_export_value help="The total expected value should be the sum of the annual values of the win." %}
+		{% include "wins/partials/win-field.html" with field=form.total_expected_non_export_value help="The total expected value should be the sum of the annual values of the win." class="restrict-width-sm" %}
 		</div>
 
 {% endif %}
