@@ -102,6 +102,8 @@
 
 .success-actions .btn:last-of-type { margin-right: 0; }
 
+.win-success { margin-bottom: 4em; }
+
 .win-success .btn-lg { margin: 0.5em 0 2em 0; }
 
 body { border-top: 5px solid #c81e53; padding-top: 2.5em; }
