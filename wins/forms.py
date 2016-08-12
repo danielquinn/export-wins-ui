@@ -127,10 +127,10 @@ class WinForm(BootstrappedForm, metaclass=WinReflectiveFormMetaclass):
             "total_expected_non_export_value",
             "goods_vs_services",
             # these are in the same block of fields, but not included in response form
-            'name_of_export',
-            'business_type',
-            'name_of_customer',
-            'sector',
+            # 'name_of_export',
+            # 'business_type',
+            # 'name_of_customer',
+            # 'sector',
         ]
 
         # if the form has been completed/sent, remove fields from form which
