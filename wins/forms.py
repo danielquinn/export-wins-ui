@@ -293,9 +293,9 @@ class WinForm(BootstrappedForm, metaclass=WinReflectiveFormMetaclass):
             for b in breakdowns
         }
         for field_name, year, breakdown_type in self.breakdown_field_data:
-            breadkdown_typenum = "1" if breakdown_type == "exports" else "2"
+            breakdown_typenum = "1" if breakdown_type == "exports" else "2"
             breakdown = self.year_type_to_breakdown.get(
-                '{}-{}'.format(year, breadkdown_typenum)
+                '{}-{}'.format(year, breakdown_typenum)
             )
             if breakdown:
                 self.initial[field_name] = breakdown['value']
@@ -306,13 +306,13 @@ class WinForm(BootstrappedForm, metaclass=WinReflectiveFormMetaclass):
         retval = []
         for field_name, year, breakdown_type in self.breakdown_field_data:
             value = self.cleaned_data.get(field_name)
-            breadkdown_typenum = "1" if breakdown_type == "exports" else "2"
+            breakdown_typenum = "1" if breakdown_type == "exports" else "2"
             breakdown = self.year_type_to_breakdown.get(
-                '{}-{}'.format(year, breadkdown_typenum)
+                '{}-{}'.format(year, breakdown_typenum)
             )
             retval.append({
                 "id": breakdown['id'] if breakdown else None,
-                "type": breadkdown_typenum,
+                "type": breakdown_typenum,
                 "year": year,
                 "value": value or 0,
                 "win": win_id,
