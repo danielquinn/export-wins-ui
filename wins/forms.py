@@ -69,7 +69,14 @@ class WinForm(BootstrappedForm, metaclass=WinReflectiveFormMetaclass):
 
     # specify fields from the serializer to exclude from the form
     class Meta(object):
-        exclude = ("id", "user", "responded", "sent", "country_name")
+        exclude = (
+            "id",
+            "user",
+            "complete",
+            "responded",
+            "sent",
+            "country_name",
+        )
 
     def __init__(self, *args, **kwargs):
 
@@ -99,6 +106,7 @@ class WinForm(BootstrappedForm, metaclass=WinReflectiveFormMetaclass):
         self.fields["total_expected_non_export_value"].initial = '0'
 
         if not self.completed:
+            # cannot edit breakdowns once completed/sent
             self.breakdown_field_data = self._add_breakdown_fields()
             self._add_breakdown_initial(breakdowns)
 
@@ -106,9 +114,9 @@ class WinForm(BootstrappedForm, metaclass=WinReflectiveFormMetaclass):
         self._add_advisor_fields()
         self._add_advisor_initial(advisors)
 
-        # need to confirm these are correct. and for the fields which aren't
-        # in confirmation form - why?!
-        # also, think this should be used somewhere else...
+        # need to confirm these are correct
+        # not sure why some fields aren't in confirmation form
+        # also, think this should be used somewhere else???
         non_editable_fields = [
             "description",
             "type",
@@ -124,6 +132,9 @@ class WinForm(BootstrappedForm, metaclass=WinReflectiveFormMetaclass):
             'name_of_customer',
             'sector',
         ]
+
+        # if the form has been completed/sent, remove fields from form which
+        # can no longer be changed
         if self.completed:
             for field_name in non_editable_fields:
                 del self.fields[field_name]
@@ -193,6 +204,7 @@ class WinForm(BootstrappedForm, metaclass=WinReflectiveFormMetaclass):
             'patch',
         )
 
+        # can't edit breakdowns once completed/sent
         if not self.completed:
             for data in self._get_breakdown_data(win_id):
                 existing_breakdown_id = data['id']

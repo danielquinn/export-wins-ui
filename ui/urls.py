@@ -1,13 +1,12 @@
 import os
 
 from django.conf.urls import url
-from django.views.generic import TemplateView
 
 from ui.views import CSVView
 from users.views import LoginView, LogoutView
 from wins.views import (
     ConfirmationView, EditWinView, MyWinsView, NewWinView, WinCompleteView,
-    WinView
+    WinTemplateView, WinView
 )
 
 urlpatterns = [
@@ -44,17 +43,19 @@ urlpatterns = [
     # success pages after creating/editing/completing a win
     url(
         r"^wins/(?P<win_id>[a-z0-9\-]{36})/new-success/$",
-        TemplateView.as_view(template_name="wins/win-new-success.html"),
+        WinTemplateView.as_view(template_name="wins/win-new-success.html"),
         name="new-win-success"
     ),
     url(
         r"^wins/(?P<win_id>[a-z0-9\-]{36})/edit-success/$",
-        TemplateView.as_view(template_name="wins/win-edit-success.html"),
+        WinTemplateView.as_view(template_name="wins/win-edit-success.html"),
         name="edit-win-success"
     ),
     url(
         r"^wins/(?P<win_id>[a-z0-9\-]{36})/complete-success/$",
-        TemplateView.as_view(template_name="wins/win-complete-success.html"),
+        WinTemplateView.as_view(
+            template_name="wins/win-complete-success.html",
+        ),
         name="complete-win-success"
     ),
 
@@ -66,7 +67,7 @@ urlpatterns = [
     ),
     url(
         r"^wins/review/thanks/$",
-        TemplateView.as_view(template_name="wins/confirmation-thanks.html"),
+        WinTemplateView.as_view(template_name="wins/confirmation-thanks.html"),
         name="confirmation-thanks"
     ),
     url(
