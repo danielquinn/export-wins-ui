@@ -9,7 +9,6 @@
 			There were some errors with your submission.  Please see below.
 		</div>
 		{{ form.non_field_errors }}
-		{{ form.errors }}
 	{% endif %}
 
 	<p class="alert alert-info">The Lead officer should provide information for this form.</p>
@@ -79,7 +78,7 @@
 
 
 		<h3>Customer's details</h3>
-		
+
 		<div class="restrict-width-sm">
 		{% include "wins/partials/win-field.html" with field=form.company_name %}
 		{% include "wins/partials/win-field.html" with field=form.cdms_reference %}
@@ -163,7 +162,7 @@
 		<p>
 			Enter whole numbers in &pound; e.g. for one-and-a-half-million, enter 1500000
 		</p>
-		
+
 		<table class="table table-responsive">
 			<tr>
 				<th>{{ form.breakdown_non_exports_0.label_tag }}</th>
@@ -193,7 +192,7 @@
 		<p>
 			How did we help the customer achieve this win?
 		</p>
-	   	
+
 		<div class="restrict-width">
 		{% include "wins/partials/win-field.html" with field=form.hvo_programme %}
 		{% include "wins/partials/win-field.html" with field=form.has_hvo_specialist_involvement %}

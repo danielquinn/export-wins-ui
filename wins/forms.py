@@ -71,7 +71,12 @@ class WinForm(BootstrappedForm, metaclass=WinReflectiveFormMetaclass):
     class Meta(object):
         exclude = (
             "id",
-            "user", "responded", "sent", "country_name")
+            "user",
+            "complete",
+            "responded",
+            "sent",
+            "country_name",
+        )
 
     def __init__(self, *args, **kwargs):
 
