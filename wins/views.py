@@ -14,6 +14,18 @@ from alice.braces import LoginRequiredMixin
 from alice.helpers import rabbit
 
 
+class WinTemplateView(TemplateView):
+    """ Template with Win context
+
+    Expects to be called with url with `win_id`
+
+    """
+    def get_context_data(self, **kwargs):
+        context = TemplateView.get_context_data(self, **kwargs)
+        context['win'] = get_win(kwargs['win_id'], self.request)
+        return context
+
+
 class MyWinsView(LoginRequiredMixin, TemplateView):
     """ View a list of all Wins of logged in User """
 
@@ -22,6 +34,7 @@ class MyWinsView(LoginRequiredMixin, TemplateView):
     def get_context_data(self, **kwargs):
         context = TemplateView.get_context_data(self, **kwargs)
 
+        # get all user's wins
         url = settings.WINS_AP + '?user__id=' + str(self.request.user.id)
         win_response = rabbit.get(url, request=self.request).json()
         wins = win_response['results']
@@ -100,15 +113,10 @@ class WinView(LoginRequiredMixin, TemplateView):
         return context
 
 
-class WinCompleteView(LoginRequiredMixin, TemplateView):
+class WinCompleteView(LoginRequiredMixin, WinTemplateView):
     """ Mark win complete """
 
     template_name = 'wins/win-complete.html'
-
-    def get_context_data(self, **kwargs):
-        context = TemplateView.get_context_data(self, **kwargs)
-        context['win'] = get_win(kwargs['win_id'], self.request)
-        return context
 
     def post(self, *args, **kwargs):
         """ POST means user has confirmed they want to submit """
