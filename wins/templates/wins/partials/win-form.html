@@ -224,19 +224,21 @@
 			{% if form.is_line_manager_confirmed.help_text %}<div class="help-text">{{ form.is_line_manager_confirmed.help_text }}</div>{% endif %}
 			<div class="clearfix"></div>
 		</div>
-
+		
+{% comment %}
 		{% if not win.complete %}
 		<p class="well restrict-width win-form-well">
 			Before sending this win to the customer, please review the details they will see. You can also save this win if you need to add or update information later.
 		</p>
 		{% endif %}
+{% endcomment %}
 
 		<div class="end-buttons">
-
+{% comment %}
 			{% if not win.complete %}
-				<input type="submit" name="send" value="Review" class="btn btn-primary">
+				<input type="submit" name="send" value="Save and review" class="btn btn-primary">
 			{% endif %}
-
+{% endcomment %}
 			<input type="submit" name="save" value="Save" class="btn btn-primary">
 
 			<a href="{% url 'index' %}" class="btn btn-default">Cancel</a>

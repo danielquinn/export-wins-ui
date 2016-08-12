@@ -18,9 +18,13 @@
 
 {% block lead-message %}
 
-	{% if win.complete %}
+	{% if win.responded %}
 
-		This win isn't complete until you have sent it to the customer for review.
+		This win is listed in "My Wins" as customer responded and is complete.
+
+	{% elif win.complete %}
+
+		This win is listed in "My Wins" as sent to customer and isn't complete until the customer has reviewed it.
 
 	{% else %}
 
@@ -31,6 +35,8 @@
 {% endblock %}
 
 {% block success-content %}
+
+	{% if not win.responded and not win.complete %}
 
 	<div class="win-success">
 		<p>
@@ -43,5 +49,7 @@
 			If you need to amend any details of the win you can <a href="{% url 'win-edit' win_id %}">edit it</a> at any time. {% if not win.complete %}After you have sent the win to the customer you will not be able to edit the customer details.{% endif %}
 		</p>
 	</div>
+
+	{% endif %}
 
 {% endblock %}
