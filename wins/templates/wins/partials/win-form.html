@@ -175,7 +175,7 @@
 			   	Total export value over the next 5 years.
 			   </p>
 
-				<table class="table table-responsive">
+				<table class="table table-responsive win-value-table">
 					<tr>
 						<th>{{ win.breakdowns.exports.0.year }}</th>
 						<th>{{ win.breakdowns.exports.1.year }}</th>
@@ -204,7 +204,7 @@
 		      	Total non export value over the next 5 years.
 		      </p>
 
-				<table class="table table-responsive">
+				<table class="table table-responsive win-value-table">
 					<tr>
 						<th>{{ win.breakdowns.nonexports.0.year }}</th>
 						<th>{{ win.breakdowns.nonexports.1.year }}</th>
@@ -228,7 +228,7 @@
 
 	{% else %}
 
-		<table class="table table-responsive">
+		<table class="table table-responsive win-value-table">
 			<tr>
 				<th>{{ form.breakdown_exports_0.label_tag }}</th>
 				<th>{{ form.breakdown_exports_1.label_tag }}</th>
@@ -257,7 +257,7 @@
 			Enter whole numbers in &pound; e.g. for one-and-a-half-million, enter 1500000
 		</p>
 
-		<table class="table table-responsive">
+		<table class="table table-responsive win-value-table">
 			<tr>
 				<th>{{ form.breakdown_non_exports_0.label_tag }}</th>
 				<th>{{ form.breakdown_non_exports_1.label_tag }}</th>

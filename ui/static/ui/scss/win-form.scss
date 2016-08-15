@@ -7,16 +7,25 @@
 	table.advisors tr th {
 		vertical-align: middle;
 	}
+
+	.win-value-table td {
+
+		width: 20%;
+	}
+
 	span.glyphicon {
 		font-size: 1.4em;
 	}
+
 	.tooltip-inner {
 		font-size: 1.2em;
 	}
+
 	.required {
 		color: #d00;
 		vertical-align: top;
 	}
+
 	#id_description {
 		height: 9em;
 	}

@@ -2,6 +2,8 @@
 
 .win-form table.advisors tr th { vertical-align: middle; }
 
+.win-form .win-value-table td { width: 20%; }
+
 .win-form span.glyphicon { font-size: 1.4em; }
 
 .win-form .tooltip-inner { font-size: 1.2em; }
