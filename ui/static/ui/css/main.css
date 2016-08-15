@@ -6,9 +6,11 @@
 
 .win-form .tooltip-inner { font-size: 1.2em; }
 
-.win-form .required { color: #d00; }
+.win-form .required { color: #d00; vertical-align: top; }
 
 .win-form #id_description { height: 9em; }
+
+.win-form label { max-width: 95%; }
 
 .win-form .help-text { margin-top: 0; color: #666666; padding: 0 0.5em 0.5em 0; }
 

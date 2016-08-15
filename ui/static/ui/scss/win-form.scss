@@ -15,9 +15,14 @@
 	}
 	.required {
 		color: #d00;
+		vertical-align: top;
 	}
 	#id_description {
 		height: 9em;
+	}
+
+	label {
+		max-width: 95%;
 	}
 
 	.help-text {
