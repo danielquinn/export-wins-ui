@@ -92,21 +92,21 @@
 
 .win-details .field-value { margin-bottom: 1.5em; }
 
-.success-buttons .btn { margin-left: 1em; }
+.success-page-content { max-width: 700px; }
 
-.success-buttons .btn:first-of-type { margin-left: 0; }
+.success-buttons { font-size: 1.2em; }
 
 .success-feedback-message { color: #777777; margin-top: 2em; }
 
-.success-page-lead { margin: 1.5em 0 3em 0; }
+.success-page-lead { margin: 1.5em 0 2em 0; }
 
-.success-actions { margin-bottom: 4em; }
+.success-actions { margin-bottom: 3em; }
 
 .success-actions .btn { margin-right: 1em; }
 
 .success-actions .btn:last-of-type { margin-right: 0; }
 
-.win-success { margin-bottom: 4em; }
+.win-success { margin-bottom: 3em; }
 
 .win-success .btn-lg { margin: 1em 0 2em 0; }
 

@@ -1,10 +1,8 @@
 {% extends "wins/partials/success.html" %}
 
-{% block header %}
-  Export win saved
-{% endblock %}
-
+{% block title %} - Win saved{% endblock title %}
 {% block breadcrumb-name %}Win saved{% endblock %}
+{% block header %}Win saved{% endblock header %}
 
 {% comment %}
 	<div class="text-center success-actions">
@@ -20,15 +18,15 @@
 
 	{% if win.responded %}
 
-		This win is listed in "My Wins" as customer responded and is complete.
+		You&#39;ve updated this win. The customer has already responded and it&#39;s listed as complete, but you can still <a href="{% url 'win-edit' win_id %}">edit some details</a> at any time.
 
 	{% elif win.complete %}
 
-		This win is listed in "My Wins" as sent to customer and isn't complete until the customer has reviewed it.
+		This win is listed in your export wins as sent to customer. The win isn't complete until the customer has reviewed it.
 
 	{% else %}
 
-     	This win is listed in "My Wins" as an unsent win and isn't complete until you have sent it to the customer for review.
+     	This win is listed in your export wins as an unsent win. The win isn't complete until you have sent it to the customer for review.
 
 	{% endif %}
 
