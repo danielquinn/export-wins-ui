@@ -1,5 +1,7 @@
 {% extends 'ui/base.html' %}
 
+{% load humanize %}
+
 {% block content %}
 
 <div class="win-form">
@@ -11,9 +13,17 @@
 		{{ form.non_field_errors }}
 	{% endif %}
 
+	{% if win.complete %}
+
+	<p class="alert alert-warning">
+		This win has been sent to the customer for review and certain information cannot be edited any more.
+	</p>
+
+	{% endif %}
+
 	<p class="alert alert-info">The Lead officer should provide information for this form.</p>
 
-	<form method="post">
+	<form method="post" id="win-form">
 
     {% csrf_token %}
 
@@ -89,20 +99,38 @@
 		</div>
 
 		<h3>Details of Export Win</h3>
+		
 		<p>
 			Your answers to these questions will be included in the details confirmed
 			by the customer.
 		</p>
 
-{% if not win.complete %}
-
 		<div class="restrict-width">
-		{% include "wins/partials/win-field.html" with field=form.business_type help="e.g. export sales, contract, order, distributor, tender /competition win, joint venture, outward investment, etc." %}
-		{% include "wins/partials/win-field.html" with field=form.description help="Please provide details of any key products services provided, missions, initiatives, etc." %}
 		{% include "wins/partials/win-field.html" with field=form.name_of_customer class="restrict-width-sm" %}
+		{% include "wins/partials/win-field.html" with field=form.business_type help="e.g. export sales, contract, order, distributor, tender /competition win, joint venture, outward investment, etc." %}
 		{% include "wins/partials/win-field.html" with field=form.name_of_export %}
+
+	{% if win.complete %}
+
+		<div class="panel panel-info">
+			<p class="panel-heading">The win has been sent to the customer and these details cannot be edited.</p>
+			<div class="panel-body">
+
+
+				{% include "wins/partials/win-details-element.html" with name="How was the company supported in achieving this win?" val=win.description %}
+				{% include "wins/partials/win-details-element.html" with name="Date" val=win.date %}
+				{% include "wins/partials/win-details-element.html" with name="Country" val=win.country %}
+			</div>
+		</div>
+		
+	{% else %}
+
+		{% include "wins/partials/win-field.html" with field=form.description help="Please provide details of any key products services provided, missions, initiatives, etc." %}
 		{% include "wins/partials/win-field.html" with field=form.date help="Enter month and year in the format MM/YYYY." class="restrict-width-sm" %}
 		{% include "wins/partials/win-field.html" with field=form.country class="restrict-width-sm" %}
+
+	{% endif %}
+
 		</div>
 
 		<h3>Expected value of the win</h3>
@@ -134,6 +162,71 @@
 		<p class="">
 			Enter whole numbers in &pound; e.g. for one-and-a-half-million, enter 1500000
 		</p>
+
+	{% if win.complete %}
+
+		<div class="panel panel-info">
+			<p class="panel-heading">The win has been sent to the customer and these details cannot be edited.</p>
+			<div class="panel-body">
+
+				<h4>Export value</h4>
+
+			   <p>
+			   	Total export value over the next 5 years.
+			   </p>
+
+				<table class="table table-responsive">
+					<tr>
+						<th>{{ win.breakdowns.exports.0.year }}</th>
+						<th>{{ win.breakdowns.exports.1.year }}</th>
+						<th>{{ win.breakdowns.exports.2.year }}</th>
+						<th>{{ win.breakdowns.exports.3.year }}</th>
+						<th>{{ win.breakdowns.exports.4.year }}</th>
+					</tr>
+					<tr>
+						<td>&pound;{{ win.breakdowns.exports.0.value | intcomma | default:0 }}</td>
+						<td>&pound;{{ win.breakdowns.exports.1.value | intcomma | default:0 }}</td>
+						<td>&pound;{{ win.breakdowns.exports.2.value | intcomma | default:0 }}</td>
+						<td>&pound;{{ win.breakdowns.exports.3.value | intcomma | default:0 }}</td>
+						<td>&pound;{{ win.breakdowns.exports.4.value | intcomma | default:0 }}</td>
+					</tr>
+				</table>
+
+				Total:
+				<span class="export-year-value">&pound;{{ win.total_expected_export_value | intcomma | default:0 }}</span>
+
+
+				<hr>
+
+		      <h4>Non-export value</h4>
+
+		      <p>
+		      	Total non export value over the next 5 years.
+		      </p>
+
+				<table class="table table-responsive">
+					<tr>
+						<th>{{ win.breakdowns.nonexports.0.year }}</th>
+						<th>{{ win.breakdowns.nonexports.1.year }}</th>
+						<th>{{ win.breakdowns.nonexports.2.year }}</th>
+						<th>{{ win.breakdowns.nonexports.3.year }}</th>
+						<th>{{ win.breakdowns.nonexports.4.year }}</th>
+					</tr>
+					<tr>
+						<td>&pound;{{ win.breakdowns.nonexports.0.value | intcomma | default:0 }}</td>
+						<td>&pound;{{ win.breakdowns.nonexports.1.value | intcomma | default:0 }}</td>
+						<td>&pound;{{ win.breakdowns.nonexports.2.value | intcomma | default:0 }}</td>
+						<td>&pound;{{ win.breakdowns.nonexports.3.value | intcomma | default:0 }}</td>
+						<td>&pound;{{ win.breakdowns.nonexports.4.value | intcomma | default:0 }}</td>
+					</tr>
+				</table>
+
+				Total:
+			    <span class="export-year-value">&pound;{{ win.total_expected_non_export_value | intcomma | default:0 }}</span>
+			</div>
+		</div>
+
+	{% else %}
 
 		<table class="table table-responsive">
 			<tr>
@@ -185,7 +278,7 @@
 		{% include "wins/partials/win-field.html" with field=form.total_expected_non_export_value help="The total expected value should be the sum of the annual values of the win." class="restrict-width-sm" %}
 		</div>
 
-{% endif %}
+	{% endif %}
 
 
 		<h3>Support provided</h3>
@@ -255,13 +348,27 @@
 	<script>
 	$(function() {
 
+{% comment %}
+		window.addEventListener( 'beforeunload', function( e ){
+
+			//console.log( formHasChanges( 'win-form' ) );
+
+			if( formHasChanges( 'win-form' ) ){
+				console.log( 'changes made' );
+				e.returnValue = 'You have unsaved edits, are you sure you want to leave?';
+			} else {
+				console.log( 'no changes' );
+			}
+
+		} );
+
 		// Initialise tooltips
 		/*
 		$('[data-toggle="tooltip"]').tooltip({
 				placement: 'top'
 		});
 		*/
-
+{% endcomment %}
 		// Auto filter the hq-team lists
 
 		// Officer
