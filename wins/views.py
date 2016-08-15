@@ -182,14 +182,32 @@ class EditWinView(BaseWinFormView):
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
         kwargs['completed'] = self.win['complete']
-        kwargs['breakdowns'] = get_win_breakdowns(
-            self.kwargs['win_id'],
-            self.request,
-        )
         kwargs['advisors'] = get_win_advisors(
             self.kwargs['win_id'],
             self.request,
         )
+
+        # if win is complete was to staticly display, else edit
+        breakdowns = get_win_breakdowns(
+            self.kwargs['win_id'],
+            self.request,
+        )
+        kwargs['breakdowns'] = breakdowns
+
+        # this is to match how they are given in detail page
+        exports = [
+            {'value': b['value'], 'year': b['year']}
+            for b in breakdowns if b['type'] == 1
+        ]
+        nonexports = [
+            {'value': b['value'], 'year': b['year']}
+            for b in breakdowns if b['type'] == 2
+        ]
+        self.win['breakdowns'] = {
+            'exports': exports,
+            'nonexports': nonexports,
+        }
+
         return kwargs
 
     def form_valid(self, form):
