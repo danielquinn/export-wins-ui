@@ -119,13 +119,13 @@ class WinForm(BootstrappedForm, metaclass=WinReflectiveFormMetaclass):
         # also, think this should be used somewhere else???
         non_editable_fields = [
             "description",
-            "type",
+            #"type",
             "date",
             "country",
             "customer_location",
             "total_expected_export_value",
             "total_expected_non_export_value",
-            "goods_vs_services",
+            #"goods_vs_services",
             # these are in the same block of fields, but not included in response form
             # 'name_of_export',
             # 'business_type',
